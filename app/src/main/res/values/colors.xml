@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+<!--    My custom colors -->
+
+    <color name="green_dark">#388034</color>
+    <color name="green_half_dark">#7AA76D</color>
+    <color name="green_light">#E9F9E4</color>
+    <color name="custom_dark">#222831</color>
+    <color name="custom_grey">#393E46</color>
+    <color name="light">#F6F6E9</color>
+    <color name="grey">#616161</color>
+
+
 </resources>
