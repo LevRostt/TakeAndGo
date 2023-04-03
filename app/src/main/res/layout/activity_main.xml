@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.example.takeandgo.ProfileScreenFragment"
+        android:name="com.example.takeandgo.MainScreenFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/login_fragment"/>
+        tools:layout="@layout/mainscreen_fragment"/>
 
 </LinearLayout>
