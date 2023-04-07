@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_dark_top">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/community_dockbar"
+        android:name="com.example.takeandgo.DockBarCommunityFragment"
+        android:layout_width="match_parent"
+        android:layout_height="124dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/dockbar_community_fragment" />
+
+    <LinearLayout
+        android:id="@+id/search"
+        android:layout_width="221dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/button_border_light_style"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/community_dockbar">
+
+        <TextView
+            android:textSize="18sp"
+            android:layout_marginStart="12dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search: "
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/search_editText"
+            android:textColorHint="@color/grey"
+            android:hint="Введите id"
+            android:maxLines="1"
+            android:maxLength="8"
+            android:layout_marginStart="15dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:background="@android:color/transparent"
+            android:textCursorDrawable="@null"/>
+
+    </LinearLayout>
+
+<!--        <androidx.fragment.app.FragmentContainerView-->
+<!--            android:id="@+id/places_on_maplist"-->
+<!--            android:name="com.example.takeandgo.ProfileOnCommunityScreenFragment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/search"-->
+<!--            tools:layout="@layout/profile_on_community_screen_fragment"/>-->
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/places_on_maplist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/main_dockbar"
+        android:name="com.example.takeandgo.DockBarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="124dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/dockbar_fragment" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

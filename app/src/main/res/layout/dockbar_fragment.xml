@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="110dp">
+    android:layout_height="120dp"
+    android:background="@drawable/bottom_dockbar">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bottom_dockbar"
-        android:paddingHorizontal="35dp"
-        android:paddingTop="25dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,47 +17,47 @@
 
         <ImageButton
             android:id="@+id/map"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
             android:background="@drawable/inner_dockbar"
-            android:src="@drawable/map"
             android:padding="5dp"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/map" />
 
         <ImageButton
             android:id="@+id/map_list"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
             android:background="@drawable/inner_dockbar"
-            android:src="@drawable/archive"
             android:padding="5dp"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/archive" />
 
         <ImageButton
             android:id="@+id/community"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
             android:background="@drawable/inner_dockbar"
-            android:src="@drawable/group"
-            android:padding="5dp"
-            android:scaleType="centerInside"/>
+            android:padding="1dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/group" />
 
         <ImageButton
             android:id="@+id/profile"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
             android:background="@drawable/inner_dockbar"
-            android:src="@drawable/user_2"
             android:padding="5dp"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/user_2" />
 
 
     </LinearLayout>

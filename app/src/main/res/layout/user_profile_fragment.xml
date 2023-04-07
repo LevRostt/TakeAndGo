@@ -4,31 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_dark_top"
+    android:background="@drawable/background_half_dark_top_center"
     tools:context=".UserProfileFragment">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageButton
         android:layout_width="100dp"
-        android:layout_height="49dp"
+        android:layout_height="50dp"
         android:layout_marginStart="-30dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/button_border_based_style"
+        android:background="@drawable/button_border_light_style"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="73dp"
-            android:layout_height="31dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/button_based_style"
-            android:scaleType="fitEnd"
-            android:src="@drawable/map"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/map"
+        android:scaleType="fitEnd"
+        android:padding="10dp"
+        android:paddingEnd="20dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -36,7 +27,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="-16dp"
-        android:background="@drawable/button_border_based_style"
+        android:background="@drawable/button_border_light_style"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -69,8 +60,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="163dp"
-        android:layout_height="164dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_marginTop="120dp"
         android:background="@drawable/button_based_style"
         android:gravity="center"
@@ -81,6 +72,7 @@
 
 
         <ImageView
+            android:clipToOutline="true"
             android:layout_width="155dp"
             android:layout_height="155dp"
             android:background="@drawable/button_based_style"
@@ -93,7 +85,7 @@
         android:layout_width="177dp"
         android:layout_height="39dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/button_border_based_style"
+        android:background="@drawable/button_border_light_style"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,38 +116,22 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/achievements"
-        android:layout_width="202dp"
-        android:layout_height="101dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_border_based_style"
+    <Button
+        android:id="@+id/changePrivaty"
+        android:layout_width="161dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/border_green_left_to_right"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/trophy"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
-            android:text="Achievements"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+        android:text="Add friend"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/black"
+        android:textScaleX="0.9"
+        android:textAllCaps="false"/>
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -166,18 +142,19 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changePrivaty"
-        app:layout_constraintVertical_bias="0.07">
+        app:layout_constraintVertical_bias="0.091">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/friendsButton"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/button_border_based_style">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="8dp"
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/button_border_light_style"
+                android:paddingBottom="20dp"
+                android:scaleType="centerInside"
                 android:src="@drawable/free_icon_friends"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -197,15 +174,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/placeList"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="24dp"
-            android:background="@drawable/button_border_based_style">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp">
 
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="8dp"
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/button_border_light_style"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="15dp"
+                android:scaleType="centerInside"
                 android:src="@drawable/free_icon_map_location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -224,24 +203,39 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/changePrivaty"
-        android:layout_width="161dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/border_green_left_to_right"
-        android:gravity="center"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/achievements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_border_light_style"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+        <ImageButton
+            android:background="@drawable/button_border_light_style"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/trophy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingTop="10dp"
+            android:paddingBottom="25dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:text="Add friend"
-            android:textColor="@color/black" />
-    </LinearLayout>
+            android:layout_marginTop="75dp"
+            android:text="Achievements"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
