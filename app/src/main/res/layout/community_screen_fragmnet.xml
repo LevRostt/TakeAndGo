@@ -8,7 +8,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/community_dockbar"
-        android:name="com.example.takeandgo.DockBarCommunityFragment"
+        android:name="com.example.takeandgo.ui.view.DockBarCommunityFragment"
         android:layout_width="match_parent"
         android:layout_height="124dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,52 +29,54 @@
         app:layout_constraintTop_toBottomOf="@+id/community_dockbar">
 
         <TextView
-            android:textSize="18sp"
-            android:layout_marginStart="12dp"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="12dp"
             android:text="Search: "
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/search_editText"
-            android:textColorHint="@color/grey"
-            android:hint="Введите id"
-            android:maxLines="1"
-            android:maxLength="8"
-            android:layout_marginStart="15dp"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
+            android:layout_marginStart="15dp"
             android:background="@android:color/transparent"
-            android:textCursorDrawable="@null"/>
+            android:hint="Введите id"
+            android:maxLength="8"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@null"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
-<!--        <androidx.fragment.app.FragmentContainerView-->
-<!--            android:id="@+id/places_on_maplist"-->
-<!--            android:name="com.example.takeandgo.ProfileOnCommunityScreenFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/search"-->
-<!--            tools:layout="@layout/profile_on_community_screen_fragment"/>-->
+    <!--        <androidx.fragment.app.FragmentContainerView-->
+    <!--            android:id="@+id/places_on_maplist"-->
+    <!--            android:name="com.example.takeandgo.ui.view.ProfileOnCommunityScreenFragment"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="20dp"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/search"-->
+    <!--            tools:layout="@layout/profile_on_community_screen_fragment"/>-->
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/places_on_maplist"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_profilelist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:maxHeight="500dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_dockbar"
-        android:name="com.example.takeandgo.DockBarFragment"
+        android:name="com.example.takeandgo.ui.view.DockBarFragment"
         android:layout_width="match_parent"
         android:layout_height="124dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,4 +1,4 @@
-package com.example.takeandgo;
+package com.example.takeandgo.ui.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,17 +7,18 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.takeandgo.databinding.ModerationChatsFragmentBinding;
+import com.example.takeandgo.databinding.DockbarCommunityFragmentBinding;
 
-public class ModerationChatsFragment extends Fragment {
 
-    private ModerationChatsFragmentBinding mBinding;
+public class DockBarCommunityFragment extends Fragment {
+
+    private DockbarCommunityFragmentBinding mBinding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mBinding = ModerationChatsFragmentBinding.inflate(inflater, container, false);
+        mBinding = DockbarCommunityFragmentBinding.inflate(inflater, container, false);
 
         return mBinding.getRoot();
     }

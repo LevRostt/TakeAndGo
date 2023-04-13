@@ -1,4 +1,4 @@
-package com.example.takeandgo;
+package com.example.takeandgo.ui.view;
 
 import android.os.Bundle;
 
@@ -9,18 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.takeandgo.databinding.ProfilescreenFragmentBinding;
+import com.example.takeandgo.databinding.UserProfileFragmentBinding;
 
 
-public class ProfileScreenFragment extends Fragment {
+public class UserProfileFragment extends Fragment {
 
-    private ProfilescreenFragmentBinding mBinding;
+    private UserProfileFragmentBinding mBinding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mBinding = ProfilescreenFragmentBinding.inflate(inflater, container, false);
+        mBinding = UserProfileFragmentBinding.inflate(inflater, container, false);
 
         mBinding.friendsButton.setOnClickListener(view ->{
 

@@ -1,16 +1,12 @@
-package com.example.takeandgo;
+package com.example.takeandgo.ui.view;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageButton;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.ActivityMainBinding;
 
 

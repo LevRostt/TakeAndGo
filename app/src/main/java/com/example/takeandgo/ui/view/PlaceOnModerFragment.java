@@ -1,25 +1,27 @@
-package com.example.takeandgo;
+package com.example.takeandgo.ui.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.takeandgo.databinding.PlaceOnMaplistFragmentBinding;
+import com.example.takeandgo.databinding.PlaceOnModerFragmentBinding;
 
-public class PlaceOnMapListFragment extends Fragment {
+public class PlaceOnModerFragment extends Fragment {
 
-    private PlaceOnMaplistFragmentBinding mBinding;
+    private PlaceOnModerFragmentBinding mBinding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = PlaceOnMaplistFragmentBinding.inflate(inflater, container, false);
+        mBinding = PlaceOnModerFragmentBinding.inflate(inflater, container, false);
         mBinding.placeIcon.setClipToOutline(true);
+
         return mBinding.getRoot();
     }
 

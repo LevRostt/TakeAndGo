@@ -36,7 +36,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addPlaceBtn"
-        android:name="com.example.takeandgo.PlaceOnModerFragment"
+        android:name="com.example.takeandgo.ui.view.PlaceOnModerFragment"
         tools:layout="@layout/place_on_moder_fragment"/>
 
     <LinearLayout

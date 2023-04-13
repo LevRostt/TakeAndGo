@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.view.MainActivity">
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.example.takeandgo.ModerationMessegeFragment"
+        android:name="com.example.takeandgo.ui.view.VisitListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/moderation_messege_fragment" />
+        tools:layout="@layout/visitlist_fragment" />
 
 </LinearLayout>

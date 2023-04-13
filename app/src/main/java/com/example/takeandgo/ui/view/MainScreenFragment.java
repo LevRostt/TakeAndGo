@@ -1,4 +1,4 @@
-package com.example.takeandgo;
+package com.example.takeandgo.ui.view;
 
 import android.os.Bundle;
 

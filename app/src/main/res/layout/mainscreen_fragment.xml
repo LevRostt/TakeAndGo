@@ -7,7 +7,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_dockbar"
-        android:name="com.example.takeandgo.DockBarFragment"
+        android:name="com.example.takeandgo.ui.view.DockBarFragment"
         android:layout_width="match_parent"
         android:layout_height="124dp"
         app:layout_constraintBottom_toBottomOf="parent"
