@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_half_dark_top_center">
+    android:background="@drawable/background_half_dark_top_center"
+    tools:context="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ModerationMessegeFragment">
+
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"

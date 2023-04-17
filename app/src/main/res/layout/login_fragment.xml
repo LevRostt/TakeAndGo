@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_light_bottom">
+    android:background="@drawable/background_light_bottom"
+    tools:context="edu.mirea.levrost.takeandgo.takeandgo.ui.view.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -42,7 +43,7 @@
                 android:layout_height="48dp"
                 android:background="@drawable/default_border_white"
                 android:hint="Введите логин"
-                android:maxLength="20"
+                android:maxLength="25"
                 android:maxLines="1"
                 android:padding="10dp"
                 android:scrollbars="horizontal"

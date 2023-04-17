@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/community_screen"
+    app:startDestination="@+id/communityScreenFragment">
+
+    <fragment
+        android:id="@+id/communityScreenFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.CommunityScreenFragment"
+        android:label="community_screen_fragmnet"
+        tools:layout="@layout/community_screen_fragmnet" >
+        <action
+            android:id="@+id/action_communityScreenFragment_to_profileScreenFragment"
+            app:destination="@id/profileScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileScreenFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ProfileScreenFragment"
+        android:label="profilescreen_fragment"
+        tools:layout="@layout/profilescreen_fragment" >
+        <action
+            android:id="@+id/action_profileScreenFragment_to_visitListFragment"
+            app:destination="@id/visitListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/visitListFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.VisitListFragment"
+        android:label="visitlist_fragment"
+        tools:layout="@layout/visitlist_fragment" />
+</navigation>

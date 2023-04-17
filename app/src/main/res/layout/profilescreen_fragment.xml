@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_dark_bottom"
-    tools:context=".ui.view.ProfileScreenFragment">
+    tools:context="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ProfileScreenFragment">
 
 
     <ImageButton
@@ -85,6 +85,7 @@
 
 
         <ImageView
+            android:id="@+id/user_icon"
             android:clipToOutline="true"
             android:layout_width="155dp"
             android:layout_height="155dp"

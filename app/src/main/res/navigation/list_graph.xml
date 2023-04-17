@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_graph"
+    app:startDestination="@id/mapListFragment">
+
+    <fragment
+        android:id="@+id/moderationChatsFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ModerationChatsFragment"
+        android:label="moderation_chats_fragment"
+        tools:layout="@layout/moderation_chats_fragment" >
+        <action
+            android:id="@+id/action_moderationChatsFragment_to_moderationMessegeFragment"
+            app:destination="@id/moderationMessegeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapListFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.MapListFragment"
+        android:label="maplist_fragment"
+        tools:layout="@layout/maplist_fragment" >
+        <action
+            android:id="@+id/action_mapListFragment_to_moderationChatsFragment"
+            app:destination="@id/moderationChatsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moderationMessegeFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ModerationMessegeFragment"
+        android:label="moderation_messege_fragment"
+        tools:layout="@layout/moderation_messege_fragment" />
+</navigation>

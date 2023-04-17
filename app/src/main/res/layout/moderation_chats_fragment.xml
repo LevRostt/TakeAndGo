@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_half_dark_top_center">
+    android:background="@drawable/background_half_dark_top_center"
+    tools:context="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ModerationChatsFragment">
 
 
-    <Button
+
+<Button
         android:id="@+id/addPlaceBtn"
         android:layout_width="168dp"
         android:layout_height="55dp"
@@ -29,15 +31,14 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/addPlaceBtn" />-->
 
-    <androidx.fragment.app.FragmentContainerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moderation_places"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPlaceBtn"
-        android:name="com.example.takeandgo.ui.view.PlaceOnModerFragment"
-        tools:layout="@layout/place_on_moder_fragment"/>
+        app:layout_constraintTop_toBottomOf="@+id/addPlaceBtn" />
 
     <LinearLayout
         android:id="@+id/answerFromDev"

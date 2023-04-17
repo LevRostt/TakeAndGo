@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_dark_top">
+    android:background="@drawable/background_dark_top"
+    tools:context="edu.mirea.levrost.takeandgo.takeandgo.ui.view.CommunityScreenFragment">
 
-    <androidx.fragment.app.FragmentContainerView
+
+<androidx.fragment.app.FragmentContainerView
         android:id="@+id/community_dockbar"
-        android:name="com.example.takeandgo.ui.view.DockBarCommunityFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.DockBarCommunityFragment"
         android:layout_width="match_parent"
         android:layout_height="124dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +25,7 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/button_border_light_style"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/community_dockbar">
@@ -54,36 +56,28 @@
 
     </LinearLayout>
 
-    <!--        <androidx.fragment.app.FragmentContainerView-->
-    <!--            android:id="@+id/places_on_maplist"-->
-    <!--            android:name="com.example.takeandgo.ui.view.ProfileOnCommunityScreenFragment"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginTop="20dp"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/search"-->
-    <!--            tools:layout="@layout/profile_on_community_screen_fragment"/>-->
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_profilelist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxHeight="500dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/main_dockbar"
-        android:name="com.example.takeandgo.ui.view.DockBarFragment"
-        android:layout_width="match_parent"
-        android:layout_height="124dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout="@layout/dockbar_fragment" />
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/main_dockbar"-->
+<!--        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.DockBarFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout="@layout/dockbar_fragment" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

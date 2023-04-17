@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.view.MainActivity">
+    android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/main_fragment"
-        android:name="com.example.takeandgo.ui.view.VisitListFragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/main_activity_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/visitlist_fragment" />
-
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        tools:context="edu.mirea.levrost.takeandgo.takeandgo.ui.view.activity.MainActivity"/>
 </LinearLayout>
