@@ -27,7 +27,6 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mBinding = MapFragmentBinding.inflate(inflater, container, false);
-        Log.d("TakeAndGoDev", "Inside Map");
 
         return mBinding.getRoot();
     }

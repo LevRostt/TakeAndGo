@@ -41,4 +41,6 @@ public class MainScreenFragment extends Fragment {
         NavigationUI.setupWithNavController(mBinding.bottomNavigationView, navController);
 
     }
+
+
 }

@@ -47,7 +47,7 @@ public class SplashFragment extends Fragment {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        intent.putExtra("isLogin", true);
+        intent.putExtra("isLogin", false);
         Log.d("TakeAndGoDevInLauncher ", String.valueOf(isLogin));
 
         new Thread(() ->{

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/user_profile_graph"
-    app:startDestination="@id/userProfileFragment">
+    app:startDestination="@id/profileFragment">
 
     <fragment
         android:id="@+id/visitListFragment"
@@ -11,12 +11,12 @@
         android:label="visitlist_fragment"
         tools:layout="@layout/visitlist_fragment" />
     <fragment
-        android:id="@+id/userProfileFragment"
-        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.UserProfileFragment"
-        android:label="user_profile_fragment"
-        tools:layout="@layout/user_profile_fragment" >
+        android:id="@+id/profileFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ProfileScreenFragment"
+        android:label="profilescreen_fragment"
+        tools:layout="@layout/profilescreen_fragment" >
         <action
-            android:id="@+id/action_userProfileFragment_to_visitListFragment2"
+            android:id="@+id/action_ProfileFragment_to_visitListFragment"
             app:destination="@id/visitListFragment" />
     </fragment>
 </navigation>

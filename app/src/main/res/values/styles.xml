@@ -11,7 +11,7 @@
         <item name="enforceMaterialTheme">true</item>
         <item name="android:background">@drawable/bottom_dockbar</item>
 
-<!--        <item name="itemIconTint">@color/mtrl_navigation_bar_colored_item_tint</item>-->
+        <item name="itemIconTint">@color/mtrl_navigation_bar_colored_item_tint</item>
 <!--        <item name="itemIconTint"></item>-->
 
         <item name="itemRippleColor">@color/mtrl_navigation_bar_colored_ripple_color</item>
