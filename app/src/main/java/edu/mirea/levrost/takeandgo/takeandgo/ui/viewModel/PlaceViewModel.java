@@ -6,22 +6,24 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import edu.mirea.levrost.takeandgo.takeandgo.data.models.PlaceList;
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
 import edu.mirea.levrost.takeandgo.takeandgo.data.repositories.PlaceListRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlaceViewModel extends AndroidViewModel {
     private PlaceListRepository repo;
-    private LiveData<ArrayList<PlaceList>> mPlaces;
+    private LiveData<List<Place>> mPlaces;
 
     public PlaceViewModel(@NonNull Application application) {
         super(application);
-        this.repo = new PlaceListRepository();
-        mPlaces = repo.getTestData();
+        this.repo = new PlaceListRepository(application);
+//        mPlaces = repo.getTestData();
+        mPlaces = repo.getDataBaseData();
     }
 
-    public LiveData<ArrayList<PlaceList>> getPlaces() {return mPlaces;}
+    public LiveData<List<Place>> getPlaces() {return mPlaces;}
 
 
 }

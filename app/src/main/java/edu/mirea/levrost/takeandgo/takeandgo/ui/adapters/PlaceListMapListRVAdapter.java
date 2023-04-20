@@ -9,20 +9,20 @@ import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import edu.mirea.levrost.takeandgo.takeandgo.data.models.PlaceList;
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
 import com.example.takeandgo.databinding.PlaceOnMaplistFragmentBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceListMapListRVAdapter extends RecyclerView.Adapter<PlaceListMapListRVAdapter.PlaceListViewHolder> {
-    List<PlaceList> data;
+    List<Place> data;
 
     public PlaceListMapListRVAdapter(){ this.data = new ArrayList<>(); }
 
-    public PlaceListMapListRVAdapter(List<PlaceList> data){ this.data = data; }
+    public PlaceListMapListRVAdapter(List<Place> data){ this.data = data; }
 
-    public void updateData(List<PlaceList> newData) {
+    public void updateData(List<Place> newData) {
         data = newData;
 
         notifyDataSetChanged();

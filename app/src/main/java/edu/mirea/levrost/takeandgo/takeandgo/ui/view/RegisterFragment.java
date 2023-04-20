@@ -1,5 +1,6 @@
 package edu.mirea.levrost.takeandgo.takeandgo.ui.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,30 +24,36 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         mBinding = RegisterFragmentBinding.inflate(inflater, container, false);
-
         mAuth = FirebaseAuth.getInstance();
+
         mBinding.regButton.setOnClickListener(view ->{
-
-            if (mBinding.loginEdittext.getText().toString().isEmpty() || mBinding.passwordEdittext.getText().toString().isEmpty()){
-                Log.d("TakeAndGoDev", "Empty");
-            } else{
-                Log.d("TakeAndGoDev_text", mBinding.loginEdittext.getText().toString() + " " + mBinding.passwordEdittext.getText().toString());
-                mAuth.createUserWithEmailAndPassword(mBinding.loginEdittext.getText().toString(), mBinding.passwordEdittext.getText().toString())
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()){
-                                NavHostFragment.findNavController(this).navigate(R.id.action_registerFragment_to_mainScreenFragment);
-                                Log.d("TakeAndGoDev_Command", "Adding is done!");
-                                Log.d("TakeAndGoDev_UID",  mAuth.getUid());
-                            }
-                            else{
-                                Log.d("TakeAndGoDev_Command", "Adding doesn't done!");
-                            }
-                        });
-            }
-
+            tryRegister();
         });
 
         return mBinding.getRoot();
+    }
+
+    private void tryRegister(){
+
+        if (mBinding.loginEdittext.getText().toString().isEmpty() || mBinding.passwordEdittext.getText().toString().isEmpty()){
+            Log.d("TakeAndGoDev", "Empty");
+        } else{
+            Log.d("TakeAndGoDev_text", mBinding.loginEdittext.getText().toString() + " " + mBinding.passwordEdittext.getText().toString());
+            mAuth.createUserWithEmailAndPassword(mBinding.loginEdittext.getText().toString(), mBinding.passwordEdittext.getText().toString())
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()){
+                            NavHostFragment.findNavController(this).navigate(R.id.action_registerFragment_to_mainScreenFragment);
+                            Log.d("TakeAndGoDev_Command", "Adding is done!");
+                            getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
+                                    .edit()
+                                    .putString("id", mAuth.getUid())
+                                    .apply();
+                        }
+                        else{
+                            Log.d("TakeAndGoDev_Command", "Adding doesn't done!");
+                        }
+                    });
+        }
     }
 
     @Override

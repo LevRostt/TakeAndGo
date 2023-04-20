@@ -1,17 +1,22 @@
 package edu.mirea.levrost.takeandgo.takeandgo.data.models;
 
-public class PlaceList {
+public class Place {
     private String icon;
     private String name;
     private double latitude;
     private double longitude;
     private String description;
 
-    public PlaceList(String name, String icon, double latitude, double longitude) {
+    public Place(String name, String icon, double latitude, double longitude) {
         this.icon = icon;
         this.name = name;
         this.latitude = latitude;
-        this.latitude = longitude;
+        this.longitude = longitude;
+    }
+
+    public Place(String name, String icon, double latitude, double longitude, String description){
+        this(name, icon, latitude, longitude);
+        this.description = description;
     }
 
     public String getName() {

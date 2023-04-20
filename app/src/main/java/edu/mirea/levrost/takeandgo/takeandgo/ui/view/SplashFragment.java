@@ -1,5 +1,6 @@
 package edu.mirea.levrost.takeandgo.takeandgo.ui.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,13 +16,12 @@ import android.view.ViewGroup;
 
 import com.example.takeandgo.databinding.FragmentSplashBinding;
 
+import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.root.AppDataBase;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.view.activity.MainActivity;
-import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
 
 public class SplashFragment extends Fragment {
 
     private FragmentSplashBinding mBinding;
-    private UserViewModel mViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,11 +34,21 @@ public class SplashFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        renderAnimations();
-        mViewModel.isUserLogin().observe(getViewLifecycleOwner(), (userInfo) ->{
-            launchMainScreen(userInfo.isLogin());
-        });
+        new Thread(() -> {
+//            String uid = getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", null);
+//            if (uid != null){
+//                launchMainScreen(true);
+//            }
+//            else {
+//                launchMainScreen(false);
+//            }
+            Intent intent = new Intent(getContext(), MainActivity.class);
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            startActivity(intent);
+        }).start();
     }
 
     private void launchMainScreen(boolean isLogin){
@@ -47,20 +57,19 @@ public class SplashFragment extends Fragment {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        intent.putExtra("isLogin", false);
-        Log.d("TakeAndGoDevInLauncher ", String.valueOf(isLogin));
+        intent.putExtra("isLogin", isLogin);
+        Log.d("TakeAndGoDevInSplash ", String.valueOf(isLogin));
 
         new Thread(() ->{
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             startActivity(intent);
 
         }).start();
-
     }
 
     @Override

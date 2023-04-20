@@ -8,18 +8,18 @@
     tools:context="edu.mirea.levrost.takeandgo.takeandgo.ui.view.UserProfileFragment">
 
 
-    <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="-30dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_border_light_style"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/map"
-        android:scaleType="fitEnd"
-        android:padding="10dp"
-        android:paddingEnd="20dp"/>
+<!--    <ImageButton-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginStart="-30dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:background="@drawable/button_border_light_style"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:src="@drawable/map"-->
+<!--        android:scaleType="fitEnd"-->
+<!--        android:padding="10dp"-->
+<!--        android:paddingEnd="20dp"/>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -62,7 +62,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/button_based_style"
         android:gravity="center"
         android:orientation="horizontal"

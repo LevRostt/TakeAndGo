@@ -1,12 +1,12 @@
 package edu.mirea.levrost.takeandgo.takeandgo.data.models;
 
-public class ProfileList {
+public class Profile {
     private String icon;
     private String name;
     private int rating;
     private int id;
 
-    public ProfileList(String name, String icon, int rating, int id) {
+    public Profile(String name, String icon, int rating, int id) {
         this.icon = icon;
         this.name = name;
         this.rating = rating;

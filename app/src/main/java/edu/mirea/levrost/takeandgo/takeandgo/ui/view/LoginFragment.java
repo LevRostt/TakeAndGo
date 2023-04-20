@@ -1,5 +1,6 @@
 package edu.mirea.levrost.takeandgo.takeandgo.ui.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,35 +26,51 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         mBinding = LoginFragmentBinding.inflate(inflater, container, false);
+        mAuth = FirebaseAuth.getInstance();
 
         mBinding.regButton.setOnClickListener(view -> {
             NavHostFragment.findNavController(this).navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment());
         });
 
-
-        mAuth = FirebaseAuth.getInstance();
         mBinding.loginButton.setOnClickListener(view ->{
+            tryLogin();
+        });
 
-            if (mBinding.loginEdittext.getText().toString().isEmpty() || mBinding.passwordEdittext.getText().toString().isEmpty()){
-                Log.d("TakeAndGoDev_Command", "Empty");
-            } else{
-                Log.d("TakeAndGoDev_text", mBinding.loginEdittext.getText().toString() + " " + mBinding.passwordEdittext.getText().toString());
-                mAuth
+        mBinding.testUserButton.setOnClickListener(view ->{
+            NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_mainScreenFragment);
+            Log.d("TakeAndGoDev_Command_UID",  String.valueOf(0));
+            getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
+                    .edit()
+                    .putString("id", String.valueOf(0))
+                    .apply();
+        });
+
+        return mBinding.getRoot();
+    }
+
+
+    private void tryLogin(){
+        if (mBinding.loginEdittext.getText().toString().isEmpty() || mBinding.passwordEdittext.getText().toString().isEmpty()){
+            Log.d("TakeAndGoDev_Command", "Empty");
+        } else{
+            Log.d("TakeAndGoDev_text", mBinding.loginEdittext.getText().toString() + " " + mBinding.passwordEdittext.getText().toString());
+            mAuth
                     .signInWithEmailAndPassword(mBinding.loginEdittext.getText().toString().trim(), mBinding.passwordEdittext.getText().toString().trim())
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()){
-//                            NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.mainScreenFragment, false).build();
+////                            NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.mainScreenFragment, false).build();
 //                            NavHostFragment.findNavController(this).navigate(R.id.action_registerFragment_to_main_graph, null, navOptions);
                             NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_mainScreenFragment);
                             Log.d("TakeAndGoDev_Command_UID",  mAuth.getUid());
+                            getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
+                                    .edit()
+                                    .putString("id", mAuth.getUid())
+                                    .apply();
                         } else{
                             Log.d("TakeAndGoDev_Command", "Auth doesn't done!");
                         }
                     });
-            }
-        });
-
-        return mBinding.getRoot();
+        }
     }
 
     @Override

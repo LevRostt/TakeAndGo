@@ -9,20 +9,20 @@ import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import edu.mirea.levrost.takeandgo.takeandgo.data.models.ProfileList;
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.Profile;
 import com.example.takeandgo.databinding.ProfileOnCommunityScreenFragmentBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileListRVAdapter extends RecyclerView.Adapter<ProfileListRVAdapter.ProfileViewHolder> {
-    List<ProfileList> data;
+    List<Profile> data;
 
     public ProfileListRVAdapter(){ this.data = new ArrayList<>(); }
 
-    public ProfileListRVAdapter(List<ProfileList> data){ this.data = data; }
+    public ProfileListRVAdapter(List<Profile> data){ this.data = data; }
 
-    public void updateData(List<ProfileList> newData) {
+    public void updateData(List<Profile> newData) {
         data = newData;
 
         notifyDataSetChanged();
