@@ -62,11 +62,12 @@
         android:id="@+id/rv_profilelist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="500dp"
         android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search" />
+
+
 
 <!--    <androidx.fragment.app.FragmentContainerView-->
 <!--        android:id="@+id/main_dockbar"-->

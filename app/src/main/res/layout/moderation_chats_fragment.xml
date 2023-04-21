@@ -13,7 +13,7 @@
         android:id="@+id/addPlaceBtn"
         android:layout_width="168dp"
         android:layout_height="55dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button_border_green_left_to_right"
         android:text="Add place"
         android:textAllCaps="false"
@@ -34,11 +34,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moderation_places"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPlaceBtn" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.066" />
 
     <LinearLayout
         android:id="@+id/answerFromDev"
@@ -55,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.454">
-        
+
         <TextView
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"

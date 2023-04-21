@@ -2,6 +2,7 @@ package edu.mirea.levrost.takeandgo.takeandgo.ui.view.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -20,6 +21,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.ActivityMainBinding;
+import com.yandex.mapkit.MapKitFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +38,8 @@ public class MainActivity extends FragmentActivity {
     private ActivityMainBinding mBinding;
     private NavController navController;
     private long back_pressed;
+
+    private final String MAPKIT_API_KEY = "e919f593-7414-4fb9-88ec-76426ec26475";
 //    private FragmentTransaction fragmentTransaction;
 
 //    public void onNavigationFragmentSelector(String name){
@@ -50,12 +54,13 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppDataBase.buildDatabase(getApplication());
         super.onCreate(savedInstanceState);
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
-//        fragmentManager = getSupportFragmentManager();
-//        AppDataBase.getDataBase(this)
+
+        AppDataBase.buildDatabase(getApplication());
+        MapKitFactory.setApiKey(MAPKIT_API_KEY);
+        MapKitFactory.initialize(this);
 
         getSupportFragmentManager().registerFragmentLifecycleCallbacks(fragmentListener, true);
         navRestart();
@@ -91,6 +96,7 @@ public class MainActivity extends FragmentActivity {
             if (navController != Navigation.findNavController(v)) {
                 navController = Navigation.findNavController(v);
             }
+
         }
     };
 
