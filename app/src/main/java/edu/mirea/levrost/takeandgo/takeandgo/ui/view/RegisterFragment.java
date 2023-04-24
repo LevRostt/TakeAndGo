@@ -8,15 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.RegisterFragmentBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.UserData;
+import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
+
 
 public class RegisterFragment extends Fragment {
     private RegisterFragmentBinding mBinding;
+    private UserViewModel mViewModel;
     public final static String fragmentName = "registerFragment";
     private FirebaseAuth mAuth;
 
@@ -24,6 +29,7 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         mBinding = RegisterFragmentBinding.inflate(inflater, container, false);
+        mViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         mAuth = FirebaseAuth.getInstance();
 
         mBinding.regButton.setOnClickListener(view ->{
@@ -44,6 +50,9 @@ public class RegisterFragment extends Fragment {
                         if (task.isSuccessful()){
                             NavHostFragment.findNavController(this).navigate(R.id.action_registerFragment_to_mainScreenFragment);
                             Log.d("TakeAndGoDev_Command", "Adding is done!");
+
+                            mViewModel.insertData(new UserData("Test name", mAuth.getUid())); // Тут нужно будет парсить значения имени и вставлять
+
                             getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
                                     .edit()
                                     .putString("id", mAuth.getUid())

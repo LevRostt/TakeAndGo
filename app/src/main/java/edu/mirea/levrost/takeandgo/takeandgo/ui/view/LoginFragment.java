@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavHostController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
@@ -16,10 +17,14 @@ import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.LoginFragmentBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.UserData;
+import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
+
 
 public class LoginFragment extends Fragment {
     private LoginFragmentBinding mBinding;
-    public final static String fragmentName = "loginFragment";
+    private UserViewModel mViewModel;
+    //public final static String fragmentName = "loginFragment";
     private FirebaseAuth mAuth;
 
     @Override
@@ -27,12 +32,13 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState){
         mBinding = LoginFragmentBinding.inflate(inflater, container, false);
         mAuth = FirebaseAuth.getInstance();
+        mViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
 
         mBinding.regButton.setOnClickListener(view -> {
             NavHostFragment.findNavController(this).navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment());
         });
 
-        mBinding.loginButton.setOnClickListener(view ->{
+        mBinding.loginButton.setOnClickListener(view -> {
             tryLogin();
         });
 
@@ -43,6 +49,9 @@ public class LoginFragment extends Fragment {
                     .edit()
                     .putString("id", String.valueOf(0))
                     .apply();
+
+            mViewModel.insertData(new UserData("Test name", String.valueOf(0))); // Тут нужно будет парсить значения имени и вставлять
+
         });
 
         return mBinding.getRoot();
@@ -54,18 +63,19 @@ public class LoginFragment extends Fragment {
             Log.d("TakeAndGoDev_Command", "Empty");
         } else{
             Log.d("TakeAndGoDev_text", mBinding.loginEdittext.getText().toString() + " " + mBinding.passwordEdittext.getText().toString());
-            mAuth
-                    .signInWithEmailAndPassword(mBinding.loginEdittext.getText().toString().trim(), mBinding.passwordEdittext.getText().toString().trim())
+            mAuth.signInWithEmailAndPassword(mBinding.loginEdittext.getText().toString().trim(), mBinding.passwordEdittext.getText().toString().trim())
                     .addOnCompleteListener(task -> {
+
                         if (task.isSuccessful()){
-////                            NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.mainScreenFragment, false).build();
-//                            NavHostFragment.findNavController(this).navigate(R.id.action_registerFragment_to_main_graph, null, navOptions);
-                            NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_mainScreenFragment);
                             Log.d("TakeAndGoDev_Command_UID",  mAuth.getUid());
+                            NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_mainScreenFragment);
                             getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
                                     .edit()
                                     .putString("id", mAuth.getUid())
                                     .apply();
+
+                            mViewModel.insertData(new UserData("Test name", mAuth.getUid())); // Тут нужно будет парсить значения имени и вставлять
+
                         } else{
                             Log.d("TakeAndGoDev_Command", "Auth doesn't done!");
                         }
@@ -77,5 +87,6 @@ public class LoginFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
+        mViewModel = null;
     }
 }

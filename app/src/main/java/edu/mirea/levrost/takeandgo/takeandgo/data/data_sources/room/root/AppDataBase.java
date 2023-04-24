@@ -3,6 +3,7 @@ package edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.root;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -13,15 +14,20 @@ import java.util.concurrent.Executors;
 
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.dao.PlaceDao;
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.dao.ProfileDao;
+import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.dao.UserDataDao;
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.entites.PlaceEntity;
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.entites.ProfileEntity;
+import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.entites.UserDataEntity;
+import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
 
-@Database(entities = {PlaceEntity.class, ProfileEntity.class}, version = 1)
+@Database(entities = {PlaceEntity.class, ProfileEntity.class, UserDataEntity.class}, version = 6)
 public abstract class AppDataBase extends RoomDatabase {
 
     public abstract PlaceDao placeDao();
 
     public abstract ProfileDao profileDao();
+
+    public abstract UserDataDao userDataDao();
 
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor =
@@ -33,7 +39,9 @@ public abstract class AppDataBase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (AppDataBase.class) {
                 if (INSTANCE == null) {
+
                     INSTANCE = buildDatabase(context);
+
 //                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
 //                                    AppDataBase.class, "app_database")
 //                            .build();
@@ -51,13 +59,29 @@ public abstract class AppDataBase extends RoomDatabase {
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
                         super.onCreate(db);
                         databaseWriteExecutor.execute(() -> {
-                            for (int i = 0; i < 10; i++) {
-                                getDataBase(context).profileDao().addProfile(new ProfileEntity("profile_" + String.valueOf(i), 1, i));
-                                getDataBase(context).placeDao().addPlace(new PlaceEntity("default_" + String.valueOf(i), 1, i));
+                            synchronized (AppDataBase.class) {
+                                for (int i = 0; i < 10; i++) {
+                                    getDataBase(context).profileDao().addProfile(new ProfileEntity("profile_" + String.valueOf(i), 1, i));
+                                    getDataBase(context).placeDao().addPlace(new PlaceEntity("default_" + String.valueOf(i), 1, i));
+                                }
+                                getDataBase(context).userDataDao().addProfile(new UserDataEntity());
                             }
                         });
                     }
-                }).build();
+
+                    @Override
+                    public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                        super.onOpen(db);
+                        databaseWriteExecutor.execute(()->{
+                            synchronized (AppDataBase.class){
+                                getDataBase(context).userDataDao().addProfile(new UserDataEntity());
+                            }
+                        });
+                    }
+                })
+                .fallbackToDestructiveMigration() // Очищает базу данных при изменении. Заменить на миграцию, если будет необходимость.
+                .build();
+
     }
 }
 

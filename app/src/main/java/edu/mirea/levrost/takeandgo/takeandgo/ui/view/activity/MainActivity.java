@@ -3,9 +3,11 @@ package edu.mirea.levrost.takeandgo.takeandgo.ui.view.activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavGraph;
@@ -29,28 +32,19 @@ import java.util.Collections;
 import java.util.List;
 
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.root.AppDataBase;
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.UserData;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.view.MainScreenFragment;
+import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
 
 
 public class MainActivity extends FragmentActivity {
-
-//    private FragmentManager fragmentManager;
     private ActivityMainBinding mBinding;
     private NavController navController;
     private long back_pressed;
+    private UserViewModel mViewModel;
 
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
     private final String MAPKIT_API_KEY = "e919f593-7414-4fb9-88ec-76426ec26475";
-//    private FragmentTransaction fragmentTransaction;
-
-//    public void onNavigationFragmentSelector(String name){
-//
-//        fragmentTransaction = fragmentManager.beginTransaction();
-//
-//        fragmentTransaction.replace(R.id.main_fragment, RegisterFragment.class, null);
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
-//
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +53,11 @@ public class MainActivity extends FragmentActivity {
         setContentView(mBinding.getRoot());
 
         AppDataBase.buildDatabase(getApplication());
+
+        mViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
+//        AppDataBase.getDataBase(this).userDataDao().addProfile( this.getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", null) );
+
         MapKitFactory.setApiKey(MAPKIT_API_KEY);
         MapKitFactory.initialize(this);
 
@@ -82,6 +81,10 @@ public class MainActivity extends FragmentActivity {
         NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.login_graph);
 
         if (isLogin()){
+            ActivityCompat
+                    .requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+            ActivityCompat
+                    .requestPermissions(this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, REQUEST_LOCATION_PERMISSION);
             navGraph.setStartDestination(R.id.mainScreenFragment);
             navController.setGraph(navGraph);
         } else{
@@ -96,13 +99,16 @@ public class MainActivity extends FragmentActivity {
             if (navController != Navigation.findNavController(v)) {
                 navController = Navigation.findNavController(v);
             }
-
         }
     };
 
     private Boolean isLogin(){
-//        Boolean isLogin = getIntent().getBooleanExtra("isLogin", false);
-        if (this.getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", null) != null){
+        String uId = this.getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", null);
+
+        if ( uId != null){
+
+            mViewModel.insertData(new UserData("Test name", uId)); //Позже парсить имя из базы
+
             return true;
         }
         return false;

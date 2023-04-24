@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "684286881051",
+    "project_id": "takeandgo-d4434",
+    "storage_bucket": "takeandgo-d4434.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684286881051:android:ca679d54d3719f0287b7be",
+        "android_client_info": {
+          "package_name": "com.example.takeandgo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "684286881051-6o1bc68rkjkcl7iprvbmal4ogsmgl9gq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsXMimYq4xX0J9kizE9ryvzpLwBfy4-x8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684286881051-6o1bc68rkjkcl7iprvbmal4ogsmgl9gq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

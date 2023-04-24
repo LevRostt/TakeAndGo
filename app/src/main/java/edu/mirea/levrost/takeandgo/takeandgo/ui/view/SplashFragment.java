@@ -51,26 +51,26 @@ public class SplashFragment extends Fragment {
         }).start();
     }
 
-    private void launchMainScreen(boolean isLogin){
-        Intent intent = new Intent(getContext(), MainActivity.class);
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        intent.putExtra("isLogin", isLogin);
-        Log.d("TakeAndGoDevInSplash ", String.valueOf(isLogin));
-
-        new Thread(() ->{
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            startActivity(intent);
-
-        }).start();
-    }
+//    private void launchMainScreen(boolean isLogin){
+//        Intent intent = new Intent(getContext(), MainActivity.class);
+//
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//        intent.putExtra("isLogin", isLogin);
+//        Log.d("TakeAndGoDevInSplash ", String.valueOf(isLogin));
+//
+//        new Thread(() ->{
+//
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            startActivity(intent);
+//
+//        }).start();
+//    }
 
     @Override
     public void onDestroyView() {
