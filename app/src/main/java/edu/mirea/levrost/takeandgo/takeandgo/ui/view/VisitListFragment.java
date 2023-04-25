@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.takeandgo.databinding.VisitlistFragmentBinding;
@@ -37,6 +38,10 @@ public class VisitListFragment extends Fragment {
 
         mBinding.rvPlacelist.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.rvPlacelist.setAdapter(new PlaceListVisitListRVAdapter());
+
+        mBinding.toBackButton.setOnClickListener((v)->{
+            NavHostFragment.findNavController(this).popBackStack();
+        });
 
         mViewModel.getPlaces().observe(getViewLifecycleOwner(), (value) -> {
             ((PlaceListVisitListRVAdapter) mBinding.rvPlacelist.getAdapter()).updateData(value);

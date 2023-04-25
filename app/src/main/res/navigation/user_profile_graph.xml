@@ -9,7 +9,12 @@
         android:id="@+id/visitListFragment"
         android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.VisitListFragment"
         android:label="visitlist_fragment"
-        tools:layout="@layout/visitlist_fragment" />
+        tools:layout="@layout/visitlist_fragment" >
+        <action
+            android:id="@+id/action_visitListFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ProfileScreenFragment"

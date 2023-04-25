@@ -13,6 +13,7 @@ import edu.mirea.levrost.takeandgo.takeandgo.data.models.Profile;
 import com.example.takeandgo.databinding.ProfileOnCommunityScreenFragmentBinding;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProfileListRVAdapter extends RecyclerView.Adapter<ProfileListRVAdapter.ProfileViewHolder> {
@@ -23,6 +24,16 @@ public class ProfileListRVAdapter extends RecyclerView.Adapter<ProfileListRVAdap
     public ProfileListRVAdapter(List<Profile> data){ this.data = data; }
 
     public void updateData(List<Profile> newData) {
+        newData.sort(new Comparator<Profile>() {
+            @Override
+            public int compare(Profile o1, Profile o2) {
+                if (o1.getRating() < o2.getRating()){
+                    return 1;
+                }
+                return -1;
+            }
+        });
+
         data = newData;
 
         notifyDataSetChanged();
@@ -47,6 +58,7 @@ public class ProfileListRVAdapter extends RecyclerView.Adapter<ProfileListRVAdap
         holder.binding.profileRating.setText(String.valueOf(data.get(position).getRating()));
         holder.binding.profileId.setText(String.valueOf(data.get(position).getId()));
         holder.binding.profileIcon.setClipToOutline(true);
+        holder.binding.profileIcon.setCropToPadding(true);
 
         holder.itemView.setAnimation(AnimationUtils.
                 loadAnimation(context, context.

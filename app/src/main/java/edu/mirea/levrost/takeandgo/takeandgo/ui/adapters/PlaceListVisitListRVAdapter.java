@@ -47,6 +47,9 @@ public class PlaceListVisitListRVAdapter extends RecyclerView.Adapter<PlaceListV
         holder.binding.placeIcon.setImageResource(resId);
         holder.binding.placeName.setText(data.get(position).getName());
 
+        holder.binding.placeIcon.setClipToOutline(true);
+        holder.binding.placeIcon.setCropToPadding(true);
+
         holder.itemView.setAnimation(AnimationUtils. // Получение созданной заранее анимации в fade_out
                     loadAnimation(context, context.
                             getResources().

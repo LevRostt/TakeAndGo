@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface ProfileDao {
     @Query("SELECT * FROM ProfileEntity")
     LiveData<List<ProfileEntity>> getAllProfiles();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addProfile(ProfileEntity profile);
 
     @Delete

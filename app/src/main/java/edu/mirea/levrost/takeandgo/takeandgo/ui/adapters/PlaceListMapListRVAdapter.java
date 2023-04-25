@@ -41,16 +41,20 @@ public class PlaceListMapListRVAdapter extends RecyclerView.Adapter<PlaceListMap
     @Override
     public void onBindViewHolder(@NonNull PlaceListViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
-        int resId = context.getResources().getIdentifier(data.get(position).getIcon(), "drawable", context.getPackageName());
-        holder.binding.placeIcon.setImageResource(resId);
-        holder.binding.placeName.setText(data.get(position).getName());
-        holder.binding.distance.setText(String.valueOf(Math.round(data.get(position).getLatitude())));
-        holder.binding.placeIcon.setClipToOutline(true);
+        if (data.get(position) != null) {
+            int resId = context.getResources().getIdentifier(data.get(position).getIcon(), "drawable", context.getPackageName());
+            holder.binding.placeIcon.setImageResource(resId);
+            holder.binding.placeName.setText(data.get(position).getName());
+            holder.binding.distance.setText(String.valueOf(Math.round(data.get(position).getLatitude())));
 
-        holder.itemView.setAnimation(AnimationUtils.
-                loadAnimation(context, context.
-                getResources().
-                getIdentifier("fade_out", "anim", context.getPackageName()))); // Получение созданной заранее анимации в fade_out
+            holder.binding.placeIcon.setClipToOutline(true);
+            holder.binding.placeIcon.setCropToPadding(true);
+
+            holder.itemView.setAnimation(AnimationUtils.
+                    loadAnimation(context, context.
+                            getResources().
+                            getIdentifier("fade_out", "anim", context.getPackageName()))); // Получение созданной заранее анимации в fade_out
+        }
     }
 
 

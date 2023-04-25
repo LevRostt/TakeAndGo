@@ -20,17 +20,9 @@ public class UserDataRepository {
         this.dataBaseSource = AppDataBase.getDataBase(application);
     }
 
-//    public LiveData<UserData> getUserDataCheck() { return userData.createUserInfo(); }
-
     public LiveData<UserData> getUserDataBase() {
         return Transformations.map(
             dataBaseSource.userDataDao().getData(), UserMapper::toDomainModel);}
-
-//    public void insertData(UserData data){
-//        AppDataBase.databaseWriteExecutor.execute(() ->{
-//            dataBaseSource.userDataDao().addProfile(new UserDataEntity(data.getName(),data.getUserId(),data.getLatitude(),data.getLongitude()));
-//        });
-//    }
 
     public void deleteUser(UserData data){
         AppDataBase.databaseWriteExecutor.execute(() ->{

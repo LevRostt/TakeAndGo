@@ -28,6 +28,8 @@ import com.yandex.mapkit.layers.ObjectEvent;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.map.IconStyle;
 import com.yandex.mapkit.map.Map;
+import com.yandex.mapkit.map.MapObject;
+import com.yandex.mapkit.map.MapObjectCollection;
 import com.yandex.mapkit.map.RotationType;
 import com.yandex.mapkit.mapview.MapView;
 import com.yandex.mapkit.user_location.UserLocationLayer;
@@ -36,6 +38,7 @@ import com.yandex.mapkit.user_location.UserLocationView;
 import com.yandex.runtime.image.ImageProvider;
 
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.UserData;
+import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.PlaceViewModel;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
 
 
@@ -43,31 +46,34 @@ public class MapFragment extends Fragment {
 
     private MapFragmentBinding mBinding;
     private MapView mapView;
-//    private FusedLocationProviderClient fusedLocationProviderClient;
+    //    private FusedLocationProviderClient fusedLocationProviderClient;
     private double userLatitude = 55.7515;
     private double userLongitude = 37.64;
-//    private float userAzimuth;
+    //    private float userAzimuth;
     private Point userPoint;
     private float zoomOnUser = 9.5f;
     private static final int REQUEST_LOCATION_PERMISSION = 1;
     private MapKit mapKit;
     private UserLocationLayer userLocationLayer;
+    private MapObjectCollection mapObjects;
 
-    private UserViewModel mViewModel;
+    private UserViewModel mUserViewModel;
+//    private PlaceViewModel mPlaceViewModel;
 
-//    private MyAzimuthListener azimuthListener;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = MapFragmentBinding.inflate(inflater, container, false);
-//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        mUserViewModel =  new ViewModelProvider(getActivity()).get(UserViewModel.class);
+//        mPlaceViewModel =  new ViewModelProvider(getActivity()).get(PlaceViewModel.class);
 
-        mViewModel =  new ViewModelProvider(getActivity()).get(UserViewModel.class);
         mapView = (MapView) mBinding.mapView;
         mapKit = MapKitFactory.getInstance();
+        mapObjects = mapView.getMap().getMapObjects().addCollection();
         updateUserLocation();
+        createMapPlaces();
 
         return mBinding.getRoot();
     }
@@ -76,63 +82,45 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mapKit.resetLocationManagerToDefault();
+        userLocationLayer = mapKit.createUserLocationLayer(mapView.getMapWindow());
+        userLocationLayer.setVisible(false);
+        userLocationLayer.setObjectListener(locationObjectListener);
 
-//        mapView.getMap().move(
-//                new CameraPosition(new Point(userLongitude,userLatitude), zoomOnUser, 0.0f, 0.0f));
-
-//        mViewModel.getData().observe(getViewLifecycleOwner(), (Observer<UserData>) userData -> {
-//            userLatitude = userData.getLatitude();
-//            userLongitude = userData.getLongitude();
-//            userPoint = new Point(userLatitude, userLongitude);
-//        });
-
-        if (!checkUserLocationAccess()) {
+        if (!checkAvaibleUserLocationAccess()) {
             requestUserLocation();
             mapView.getMap().move(
                     new CameraPosition(new Point(userLatitude, userLongitude), zoomOnUser, 0.0f, 0.0f));
         } else {
-            if (updateUserLocation()) {
-                mapView.getMap().move(
-                        new CameraPosition(userPoint, zoomOnUser, 0.0f, 45f),
-                        new Animation(Animation.Type.SMOOTH, 3), null);
-            }
+            userLocationLayer.setVisible(true);
+            jumpToUser(1);
+//            if (updateUserLocation()) {
+//                mapView.getMap().move(
+//                        new CameraPosition(userPoint, zoomOnUser, 0.0f, 45f),
+//                        new Animation(Animation.Type.SMOOTH, 3), null);
+//            }
         }
 
-        mapKit.resetLocationManagerToDefault();
-        userLocationLayer = mapKit.createUserLocationLayer(mapView.getMapWindow());
-        userLocationLayer.setVisible(true);
-
-        userLocationLayer.setObjectListener(locationObjectListener);
-
-//        mapView.getMap().addCameraListener((map, cameraPosition, cameraUpdateReason, b) -> {
-//            mBinding.userLocationBtm.setImageDrawable(getResources().getDrawable(R.drawable.map_arrow_empty));
-//        });
-
         mBinding.userLocationBtm.setOnClickListener((v) ->{
-            if (!checkUserLocationAccess()) {
-                requestUserLocation();
-            } else {
-                if (updateUserLocation()) {
-                    updateUserLocation();
+            jumpToUser(2);
 
-                    if (userPoint.getLatitude() !=0) {
-                        mapView.getMap().move(
-                                new CameraPosition(userPoint, zoomOnUser, 0.0f, 45f),
-                                new Animation(Animation.Type.SMOOTH, 2), null);
-                    }
-//                    ((ImageButton)v).setImageDrawable(getResources().getDrawable(R.drawable.map_arrow));
-                }
-                else {
-                    Toast.makeText(getActivity(), "Please, turn on your location", Toast.LENGTH_SHORT).show();
-                }
-            }
+//            if (!checkAvaibleUserLocationAccess()) {
+//                requestUserLocation();
+//            } else {
+//                if (updateUserLocation()) {
+//                    if (userPoint.getLatitude() !=0) {
+//                        mapView.getMap().move(
+//                                new CameraPosition(userPoint, zoomOnUser, 0.0f, 45f),
+//                                new Animation(Animation.Type.SMOOTH, 2), null);
+//                    }
+//                }
+//                else {
+//                    Toast.makeText(getActivity(), "Please, turn on your location", Toast.LENGTH_SHORT).show();
+//                }
+//            }
         });
 
 
-//        mapView.getMap().move(
-//                new CameraPosition(new Point(55.751574, 37.625), 10.5f, 0.0f, 0.0f),
-//                new Animation(Animation.Type.SMOOTH, 3),
-//                null);
     }
 
     @Override
@@ -149,7 +137,13 @@ public class MapFragment extends Fragment {
         super.onStop();
     }
 
-    private boolean checkUserLocationAccess() {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mUserViewModel = null;
+    }
+
+    private boolean checkAvaibleUserLocationAccess() {
         return ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
@@ -161,13 +155,13 @@ public class MapFragment extends Fragment {
                 .requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, REQUEST_LOCATION_PERMISSION);
     }
 
-    private boolean updateUserLocation() {
+    private boolean updateUserLocation() { // Возвращает true - если обновлена, false - если нет возможности и установила по умолчанию
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return false;
         }
         //Without this condition, the code receiver generates an error
-        mViewModel.getData().observe(getViewLifecycleOwner(), userData -> {
+        mUserViewModel.getData().observe(getViewLifecycleOwner(), userData -> {
             userLatitude = userData.getLatitude();
             userLongitude = userData.getLongitude();
             zoomOnUser = 16.5f;
@@ -175,12 +169,27 @@ public class MapFragment extends Fragment {
 
         userPoint = new Point(userLatitude, userLongitude);
 
-        if (userPoint == null){
+        if (userLongitude == 0 || userLatitude == 0){
+            userPoint = new Point(55.7515, 37.64);
+            zoomOnUser = 9.5f;
             return false;
         }
         else {return true;}
     }
 
+    private void jumpToUser(int cameraDuration){
+        if (!checkAvaibleUserLocationAccess()) {
+            requestUserLocation();
+        } else {
+            if (!updateUserLocation()) {
+                Toast.makeText(getActivity(), "Please, turn on your location", Toast.LENGTH_SHORT).show();
+            }
+            userLocationLayer.setVisible(true);
+            mapView.getMap().move(
+                    new CameraPosition(userPoint, zoomOnUser, 0.0f, 45f),
+                    new Animation(Animation.Type.SMOOTH, cameraDuration), null);
+        }
+    }
 
     private UserLocationObjectListener locationObjectListener = new UserLocationObjectListener() {
         @Override
@@ -191,12 +200,12 @@ public class MapFragment extends Fragment {
 
             userLocationView.getAccuracyCircle().setFillColor(Color.argb(200,233,249,228));
 
-            userLocationView.getArrow().setIcon(ImageProvider.fromResource(getActivity(),R.drawable.pin),
+            userLocationView.getArrow().setIcon(ImageProvider.fromResource(getActivity(),R.drawable.map_arrow_circle),
                     new IconStyle().setAnchor(new PointF(0.5f, 0.7f))
-                    .setRotationType(RotationType.NO_ROTATION)
-                    .setScale(0.045f));
+                            .setRotationType(RotationType.NO_ROTATION)
+                            .setScale(0.045f));
 
-            userLocationView.getPin().setIcon(ImageProvider.fromResource(getActivity(),R.drawable.pin),
+            userLocationView.getPin().setIcon(ImageProvider.fromResource(getActivity(),R.drawable.map_arrow_circle),
                     new IconStyle().setAnchor(new PointF(0.5f, 0.7f))
                             .setRotationType(RotationType.NO_ROTATION)
                             .setScale(0.045f));
@@ -210,5 +219,8 @@ public class MapFragment extends Fragment {
         public void onObjectUpdated(@NonNull UserLocationView userLocationView, @NonNull ObjectEvent objectEvent) {}
     };
 
+    private void createMapPlaces(){
+//        for (int i = 0; i < m)
+    }
 
 }

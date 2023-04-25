@@ -54,31 +54,20 @@ public abstract class AppDataBase extends RoomDatabase {
 
     public static AppDataBase buildDatabase(Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), AppDataBase.class, "app_database")
-                .addCallback(new RoomDatabase.Callback() {
-                    @Override
-                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                        super.onCreate(db);
-                        databaseWriteExecutor.execute(() -> {
-                            synchronized (AppDataBase.class) {
-                                for (int i = 0; i < 10; i++) {
-                                    getDataBase(context).profileDao().addProfile(new ProfileEntity("profile_" + String.valueOf(i), 1, i));
-                                    getDataBase(context).placeDao().addPlace(new PlaceEntity("default_" + String.valueOf(i), 1, i));
-                                }
-                                getDataBase(context).userDataDao().addProfile(new UserDataEntity());
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                        super.onOpen(db);
-                        databaseWriteExecutor.execute(()->{
-                            synchronized (AppDataBase.class){
-                                getDataBase(context).userDataDao().addProfile(new UserDataEntity());
-                            }
-                        });
-                    }
-                })
+//                .addCallback(new RoomDatabase.Callback() {
+//                    @Override
+//                    public void onOpen(@NonNull SupportSQLiteDatabase db) {
+//                        super.onCreate(db);
+//                        databaseWriteExecutor.execute(() -> {
+//                            synchronized (AppDataBase.class) {
+//                                for (int i = 0; i < 10; i++) {
+//                                    getDataBase(context).profileDao().addProfile(new ProfileEntity("profile_" + String.valueOf(i), 1, i));
+//                                    getDataBase(context).placeDao().addPlace(new PlaceEntity("default_" + String.valueOf(i), 1, i));
+//                                }
+//                            }
+//                        });
+//                    }
+//                })
                 .fallbackToDestructiveMigration() // Очищает базу данных при изменении. Заменить на миграцию, если будет необходимость.
                 .build();
 

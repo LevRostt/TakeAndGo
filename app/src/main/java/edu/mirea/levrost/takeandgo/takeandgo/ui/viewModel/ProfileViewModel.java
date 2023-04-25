@@ -6,10 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.root.AppDataBase;
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.Profile;
 import edu.mirea.levrost.takeandgo.takeandgo.data.repositories.ProfileListRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileViewModel extends AndroidViewModel {
@@ -25,6 +26,14 @@ public class ProfileViewModel extends AndroidViewModel {
 
     public LiveData<List<Profile>> getProfiles() {return mProfiles;}
 
+    public void pushDataAll(List<Profile> profiles){
+        for (int i = 0; i < profiles.size(); i++){
+            repo.updateData(profiles.get(i));
+        }
+    }
 
+    public void generic(){
+        repo.generic();
+    }
 
 }
