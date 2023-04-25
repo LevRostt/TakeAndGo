@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
@@ -17,14 +20,17 @@ import java.util.List;
 
 public class PlaceListMapListRVAdapter extends RecyclerView.Adapter<PlaceListMapListRVAdapter.PlaceListViewHolder> {
     List<Place> data;
+    private Fragment fragment;
 
-    public PlaceListMapListRVAdapter(){ this.data = new ArrayList<>(); }
+    public PlaceListMapListRVAdapter(Fragment fragment){
+        this.data = new ArrayList<>();
+        this.fragment = fragment;
+    }
 
     public PlaceListMapListRVAdapter(List<Place> data){ this.data = data; }
 
     public void updateData(List<Place> newData) {
         data = newData;
-
         notifyDataSetChanged();
     }
 
@@ -41,16 +47,24 @@ public class PlaceListMapListRVAdapter extends RecyclerView.Adapter<PlaceListMap
     @Override
     public void onBindViewHolder(@NonNull PlaceListViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
-        int resId = context.getResources().getIdentifier(data.get(position).getIcon(), "drawable", context.getPackageName());
-        holder.binding.placeIcon.setImageResource(resId);
-        holder.binding.placeName.setText(data.get(position).getName());
-        holder.binding.distance.setText(String.valueOf(Math.round(data.get(position).getLatitude())));
-        holder.binding.placeIcon.setClipToOutline(true);
+        if (data.get(position) != null) {
+            int resId = context.getResources().getIdentifier(data.get(position).getIcon(), "drawable", context.getPackageName());
+            holder.binding.placeIcon.setImageResource(resId);
+            holder.binding.placeName.setText(data.get(position).getName());
+            holder.binding.distance.setText(String.valueOf(Math.round(data.get(position).getLatitude())));
 
-        holder.itemView.setAnimation(AnimationUtils.
-                loadAnimation(context, context.
-                getResources().
-                getIdentifier("fade_out", "anim", context.getPackageName()))); // Получение созданной заранее анимации в fade_out
+            holder.binding.placeIcon.setClipToOutline(true);
+            holder.binding.placeIcon.setCropToPadding(true);
+
+            holder.binding.showButton.setOnClickListener( v -> {
+                NavHostFragment.findNavController(fragment).popBackStack(); // Починить
+            });
+
+            holder.itemView.setAnimation(AnimationUtils.
+                    loadAnimation(context, context.
+                            getResources().
+                            getIdentifier("fade_out", "anim", context.getPackageName()))); // Получение созданной заранее анимации в fade_out
+        }
     }
 
 

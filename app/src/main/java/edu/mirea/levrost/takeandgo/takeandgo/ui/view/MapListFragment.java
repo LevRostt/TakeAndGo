@@ -35,7 +35,7 @@ public class MapListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mBinding.rvPlacelist.setLayoutManager(new LinearLayoutManager(getContext()));
-        mBinding.rvPlacelist.setAdapter(new PlaceListMapListRVAdapter());
+        mBinding.rvPlacelist.setAdapter(new PlaceListMapListRVAdapter(this));
 
         mViewModel.getPlaces().observe(getViewLifecycleOwner(), (value) -> {
             ((PlaceListMapListRVAdapter) mBinding.rvPlacelist.getAdapter()).updateData(value);

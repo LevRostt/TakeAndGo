@@ -8,8 +8,10 @@ import androidx.lifecycle.Transformations;
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.PlaceListDataSource;
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.mappers.PlaceMapper;
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.entites.PlaceEntity;
+import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.entites.ProfileEntity;
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.root.AppDataBase;
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,5 +36,30 @@ public class PlaceListRepository {
                 (value) -> value.stream().map(PlaceMapper::toDomainModel).collect(Collectors.toList()));
     }
 
+    public void updateData(Place data){
+        AppDataBase.databaseWriteExecutor.execute(()->{
+            dataBaseSource.placeDao().addPlace(new PlaceEntity(data.getName(), data.getIcon(), data.getLatitude(), data.getLongitude(), data.getDescription()));
+        });
+    }
+
+    public void generic(){
+        AppDataBase.databaseWriteExecutor.execute(()->{
+            List<Place> placeList = new ArrayList<>();
+
+            placeList.add(new Place("Воробьёвы горы", "sparrow_hills"  ,55.71, 37.545));
+            placeList.add(new Place("Парк Олимпийской Деревни", 55.6788, 37.4778));
+            placeList.add(new Place("Парк Никулино", 55.658378, 37.479546 ));
+            placeList.add(new Place("Парк Школьников", 55.670902, 37.466393 ));
+
+            for (Place place: placeList){
+                dataBaseSource.placeDao().addPlace(new PlaceEntity(place.getName(),place.getIcon(),place.getLatitude(),place.getLongitude()));
+            }
+
+        });
+    }
+
+    public Place findByCoordinates(double latitude, double longitude){
+        return PlaceMapper.toDomainModel(dataBaseSource.placeDao().findNameByLatitude(latitude, longitude));
+    }
 
 }

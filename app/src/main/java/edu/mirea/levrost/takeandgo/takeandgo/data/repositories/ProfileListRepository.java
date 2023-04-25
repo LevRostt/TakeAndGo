@@ -7,6 +7,8 @@ import androidx.lifecycle.Transformations;
 
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.ProfileListDataSource;
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.mappers.ProfileMapper;
+import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.entites.PlaceEntity;
+import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.entites.ProfileEntity;
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.root.AppDataBase;
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.Profile;
 
@@ -33,4 +35,25 @@ public class ProfileListRepository {
                 (value) -> value.stream().map(ProfileMapper::toDomainModel).collect(Collectors.toList()));
     }
 
+    public void updateData(Profile data){
+        AppDataBase.databaseWriteExecutor.execute(()->{
+            dataBaseSource.profileDao().addProfile(new ProfileEntity(data.getName(), data.getIcon(), data.getRating(),data.getId()));
+        });
+    }
+
+    public void generic(){
+        AppDataBase.databaseWriteExecutor.execute(()->{
+            List<Profile> profileList = new ArrayList<>();
+            profileList.add(new Profile("User1",1, 10));
+            profileList.add(new Profile("User2",2, 12));
+            profileList.add(new Profile("User3",3, 14));
+            profileList.add(new Profile("User4",4, 16));
+            profileList.add(new Profile("User5",5, 16));
+            profileList.add(new Profile("User6",666, 160));
+
+            for (Profile profile: profileList){
+                dataBaseSource.profileDao().addProfile(new ProfileEntity( profile.getName(), profile.getRating(), profile.getId()));
+            }
+        });
+    }
 }

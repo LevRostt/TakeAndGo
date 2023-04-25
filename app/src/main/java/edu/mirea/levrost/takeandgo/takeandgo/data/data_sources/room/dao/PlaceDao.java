@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -16,11 +17,14 @@ public interface PlaceDao {
     @Query("SELECT * FROM PlaceEntity")
     LiveData<List<PlaceEntity>> getAllPlaces();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addPlace(PlaceEntity place);
 
     @Delete
     void deletePlace(PlaceEntity place);
+
+    @Query("SELECT * FROM PlaceEntity WHERE latitude = :latitude AND longitude = :longitude")
+    PlaceEntity findNameByLatitude(double latitude, double longitude);
 
 
 //    @Query("SELECT * FROM PlaceEntity WHERE id = :id")

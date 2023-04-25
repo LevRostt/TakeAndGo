@@ -6,11 +6,16 @@ public class Profile {
     private int rating;
     private int id;
 
-    public Profile(String name, String icon, int rating, int id) {
-        this.icon = icon;
+    public Profile(String name, int rating, int id) {
         this.name = name;
         this.rating = rating;
         this.id = id;
+        this.icon = "default_question_mark";
+    }
+
+    public Profile(String name, String icon, int rating, int id) {
+        this(name, rating, id);
+        this.icon = icon;
     }
 
     public String getName() {
