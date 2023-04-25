@@ -23,6 +23,9 @@ public interface PlaceDao {
     @Delete
     void deletePlace(PlaceEntity place);
 
+    @Query("SELECT * FROM PlaceEntity WHERE latitude = :latitude AND longitude = :longitude")
+    PlaceEntity findNameByLatitude(double latitude, double longitude);
+
 
 //    @Query("SELECT * FROM PlaceEntity WHERE id = :id")
 //    LiveData<PlaceEntity> getById(long id);

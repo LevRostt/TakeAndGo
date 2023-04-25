@@ -27,9 +27,9 @@ import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.layers.ObjectEvent;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.map.IconStyle;
-import com.yandex.mapkit.map.Map;
-import com.yandex.mapkit.map.MapObject;
 import com.yandex.mapkit.map.MapObjectCollection;
+import com.yandex.mapkit.map.MapObjectTapListener;
+import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.map.RotationType;
 import com.yandex.mapkit.mapview.MapView;
 import com.yandex.mapkit.user_location.UserLocationLayer;
@@ -37,7 +37,7 @@ import com.yandex.mapkit.user_location.UserLocationObjectListener;
 import com.yandex.mapkit.user_location.UserLocationView;
 import com.yandex.runtime.image.ImageProvider;
 
-import edu.mirea.levrost.takeandgo.takeandgo.data.models.UserData;
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.PlaceViewModel;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
 
@@ -58,20 +58,23 @@ public class MapFragment extends Fragment {
     private MapObjectCollection mapObjects;
 
     private UserViewModel mUserViewModel;
-//    private PlaceViewModel mPlaceViewModel;
-
-
+    private PlaceViewModel mPlaceViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = MapFragmentBinding.inflate(inflater, container, false);
         mUserViewModel =  new ViewModelProvider(getActivity()).get(UserViewModel.class);
-//        mPlaceViewModel =  new ViewModelProvider(getActivity()).get(PlaceViewModel.class);
+        mPlaceViewModel =  new ViewModelProvider(getActivity()).get(PlaceViewModel.class);
 
         mapView = (MapView) mBinding.mapView;
         mapKit = MapKitFactory.getInstance();
         mapObjects = mapView.getMap().getMapObjects().addCollection();
+
+        userLocationLayer = mapKit.createUserLocationLayer(mapView.getMapWindow());
+        userLocationLayer.setVisible(false);
+        userLocationLayer.setObjectListener(locationObjectListener);
+
         updateUserLocation();
         createMapPlaces();
 
@@ -82,10 +85,6 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mapKit.resetLocationManagerToDefault();
-        userLocationLayer = mapKit.createUserLocationLayer(mapView.getMapWindow());
-        userLocationLayer.setVisible(false);
-        userLocationLayer.setObjectListener(locationObjectListener);
 
         if (!checkAvaibleUserLocationAccess()) {
             requestUserLocation();
@@ -93,33 +92,12 @@ public class MapFragment extends Fragment {
                     new CameraPosition(new Point(userLatitude, userLongitude), zoomOnUser, 0.0f, 0.0f));
         } else {
             userLocationLayer.setVisible(true);
-            jumpToUser(1);
-//            if (updateUserLocation()) {
-//                mapView.getMap().move(
-//                        new CameraPosition(userPoint, zoomOnUser, 0.0f, 45f),
-//                        new Animation(Animation.Type.SMOOTH, 3), null);
-//            }
+            jumpToUser(1.5f);
         }
 
         mBinding.userLocationBtm.setOnClickListener((v) ->{
             jumpToUser(2);
-
-//            if (!checkAvaibleUserLocationAccess()) {
-//                requestUserLocation();
-//            } else {
-//                if (updateUserLocation()) {
-//                    if (userPoint.getLatitude() !=0) {
-//                        mapView.getMap().move(
-//                                new CameraPosition(userPoint, zoomOnUser, 0.0f, 45f),
-//                                new Animation(Animation.Type.SMOOTH, 2), null);
-//                    }
-//                }
-//                else {
-//                    Toast.makeText(getActivity(), "Please, turn on your location", Toast.LENGTH_SHORT).show();
-//                }
-//            }
         });
-
 
     }
 
@@ -141,6 +119,7 @@ public class MapFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mUserViewModel = null;
+        mPlaceViewModel = null;
     }
 
     private boolean checkAvaibleUserLocationAccess() {
@@ -177,7 +156,7 @@ public class MapFragment extends Fragment {
         else {return true;}
     }
 
-    private void jumpToUser(int cameraDuration){
+    private void jumpToUser(float cameraDuration){
         if (!checkAvaibleUserLocationAccess()) {
             requestUserLocation();
         } else {
@@ -194,21 +173,21 @@ public class MapFragment extends Fragment {
     private UserLocationObjectListener locationObjectListener = new UserLocationObjectListener() {
         @Override
         public void onObjectAdded(@NonNull UserLocationView userLocationView) {
-            userLocationLayer.setAnchor(
-                    new PointF((float)(mapView.getWidth() * 0.5), (float)(mapView.getHeight() * 0.5)),
-                    new PointF((float)(mapView.getWidth() * 0.5), (float)(mapView.getHeight() * 0.83)));
+//            userLocationLayer.setAnchor(
+//                    new PointF((float)(mapView.getWidth() * 0.5), (float)(mapView.getHeight() * 0.5)),
+//                    new PointF((float)(mapView.getWidth() * 0.5), (float)(mapView.getHeight() * 0.83)));
 
             userLocationView.getAccuracyCircle().setFillColor(Color.argb(200,233,249,228));
 
-            userLocationView.getArrow().setIcon(ImageProvider.fromResource(getActivity(),R.drawable.map_arrow_circle),
+            userLocationView.getArrow().setIcon(ImageProvider.fromResource(getActivity(),R.drawable.map_arrow_circle_red),
                     new IconStyle().setAnchor(new PointF(0.5f, 0.7f))
                             .setRotationType(RotationType.NO_ROTATION)
-                            .setScale(0.045f));
+                            .setScale(0.065f));
 
-            userLocationView.getPin().setIcon(ImageProvider.fromResource(getActivity(),R.drawable.map_arrow_circle),
+            userLocationView.getPin().setIcon(ImageProvider.fromResource(getActivity(),R.drawable.map_arrow_circle_red),
                     new IconStyle().setAnchor(new PointF(0.5f, 0.7f))
                             .setRotationType(RotationType.NO_ROTATION)
-                            .setScale(0.045f));
+                            .setScale(0.065f));
 
         }
 
@@ -220,7 +199,30 @@ public class MapFragment extends Fragment {
     };
 
     private void createMapPlaces(){
-//        for (int i = 0; i < m)
+
+        MapObjectTapListener objectTapListener = (mapObject, point) -> {
+
+            PlacemarkMapObject localObject = (PlacemarkMapObject) mapObject;
+            Object userData = localObject.getUserData();
+            if (userData instanceof Place){
+                Toast.makeText(getContext(),((Place) localObject.getUserData()).getName(), Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        };
+
+        mPlaceViewModel.getPlaces().observe(getViewLifecycleOwner(), places -> {
+            for (Place place: places){
+
+                PlacemarkMapObject object = mapObjects.addPlacemark(new Point(place.getLatitude(),place.getLongitude()));
+                object.setIcon(ImageProvider.fromResource(getContext(), R.drawable.pin),
+                        new IconStyle().setAnchor(new PointF(0.5f, 0.7f))
+                        .setScale(0.04f));
+                object.setVisible(true);
+                object.setUserData(place);
+
+                object.addTapListener(objectTapListener);
+            }
+        });
     }
 
 }

@@ -8,7 +8,9 @@ import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
 public class PlaceMapper {
 
     public static Place toDomainModel(PlaceEntity entity){
-        return new Place(entity.name, entity.icon, entity.latitude, entity.longitude);
+        if (entity != null)
+            return new Place(entity.name, entity.icon, entity.latitude, entity.longitude);
+        return null;
     }
 
 }

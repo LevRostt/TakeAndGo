@@ -17,7 +17,8 @@
         android:theme="@style/Theme.TakeAndGO"
         tools:targetApi="31">
 
-        <activity android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.activity.MainActivity">
+        <activity android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.activity.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -25,7 +26,8 @@
 
         <activity
             android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.activity.SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

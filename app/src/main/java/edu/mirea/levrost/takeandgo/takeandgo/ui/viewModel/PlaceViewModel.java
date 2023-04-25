@@ -6,11 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.root.AppDataBase;
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
 import edu.mirea.levrost.takeandgo.takeandgo.data.repositories.PlaceListRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceViewModel extends AndroidViewModel {
@@ -27,15 +25,16 @@ public class PlaceViewModel extends AndroidViewModel {
     public LiveData<List<Place>> getPlaces() {return mPlaces;}
 
     public void pushDataAll(List<Place> places){
-        AppDataBase.databaseWriteExecutor.execute(()->{
-            for (int i = 0; i < places.size(); i++){
-                repo.updateData(places.get(i));
-            }
-        });
+       for (int i = 0; i < places.size(); i++){repo.updateData(places.get(i));}
     }
 
     public void generic(){
         repo.generic();
     }
+
+    public Place findByCoordinates(double latitude, double longitude){
+        return repo.findByCoordinates(latitude, longitude);
+    }
+
 
 }

@@ -47,7 +47,7 @@ public class PlaceListRepository {
             List<Place> placeList = new ArrayList<>();
 
             placeList.add(new Place("Воробьёвы горы", "sparrow_hills"  ,55.71, 37.545));
-            placeList.add(new Place("Парк Олимпийской Деревни", 55.4236, 37.3242 ));
+            placeList.add(new Place("Парк Олимпийской Деревни", 55.6788, 37.4778));
             placeList.add(new Place("Парк Никулино", 55.658378, 37.479546 ));
             placeList.add(new Place("Парк Школьников", 55.670902, 37.466393 ));
 
@@ -56,6 +56,10 @@ public class PlaceListRepository {
             }
 
         });
+    }
+
+    public Place findByCoordinates(double latitude, double longitude){
+        return PlaceMapper.toDomainModel(dataBaseSource.placeDao().findNameByLatitude(latitude, longitude));
     }
 
 }
