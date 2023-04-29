@@ -49,7 +49,7 @@ public class PlaceListRepository {
             placeList.add(new Place("Воробьёвы горы", "sparrow_hills"  ,55.71, 37.545));
             placeList.add(new Place("Парк Олимпийской Деревни", 55.6788, 37.4778));
             placeList.add(new Place("Парк Никулино", 55.658378, 37.479546 ));
-            placeList.add(new Place("Парк Школьников", 55.670902, 37.466393 ));
+            placeList.add(new Place("Парк Школьников", 55.668, 37.462 ));
 
             for (Place place: placeList){
                 dataBaseSource.placeDao().addPlace(new PlaceEntity(place.getName(),place.getIcon(),place.getLatitude(),place.getLongitude()));

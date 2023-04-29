@@ -5,7 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavArgument;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.NavHostController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.MainScreenFragmentBinding;
@@ -38,8 +41,14 @@ public class MainScreenFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d("TakeAndGoDev", "InsideMainScreenView");
         NavController navController = ((NavHostFragment) getChildFragmentManager().findFragmentById(R.id.view_content_container)).getNavController();
+
+//        navController.addOnDestinationChangedListener((navCtrl, destination, arguments) -> {
+//            //addCont
+//            if(destination.getId() == R.id.mapFragment) {
+//                Toast.makeText(getContext(), "com",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
         NavigationUI.setupWithNavController(mBinding.bottomNavigationView, navController);
-
     }
-
 }

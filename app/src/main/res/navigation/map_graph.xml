@@ -9,5 +9,10 @@
         android:id="@+id/mapFragment"
         android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.MapFragment"
         android:label="map_fragment"
-        tools:layout="@layout/map_fragment" />
+        tools:layout="@layout/map_fragment" >
+        <argument
+            android:name="Longitude"
+            app:argType="float"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

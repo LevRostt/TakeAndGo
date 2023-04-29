@@ -56,6 +56,6 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.5.1'
     androidTestImplementation 'androidx.room:room-testing:2.5.1'
 
-    implementation 'com.yandex.android:maps.mobile:4.3.1-full' // map
+    implementation 'com.yandex.android:maps.mobile:4.3.1-lite' // map
 
 }

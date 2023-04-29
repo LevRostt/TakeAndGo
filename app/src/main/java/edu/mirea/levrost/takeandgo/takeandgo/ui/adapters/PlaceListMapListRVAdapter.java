@@ -1,6 +1,7 @@
 package edu.mirea.levrost.takeandgo.takeandgo.ui.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
+import edu.mirea.levrost.takeandgo.takeandgo.ui.view.MapListFragment;
+
+import com.example.takeandgo.R;
+import com.example.takeandgo.databinding.MaplistFragmentBinding;
 import com.example.takeandgo.databinding.PlaceOnMaplistFragmentBinding;
 
 import java.util.ArrayList;
@@ -20,11 +27,13 @@ import java.util.List;
 
 public class PlaceListMapListRVAdapter extends RecyclerView.Adapter<PlaceListMapListRVAdapter.PlaceListViewHolder> {
     List<Place> data;
-    private Fragment fragment;
+    private MapListFragment fragment;
+    private MaplistFragmentBinding parentBinding;
 
-    public PlaceListMapListRVAdapter(Fragment fragment){
+    public PlaceListMapListRVAdapter(MapListFragment fragment, MaplistFragmentBinding binding){
         this.data = new ArrayList<>();
         this.fragment = fragment;
+        parentBinding = binding;
     }
 
     public PlaceListMapListRVAdapter(List<Place> data){ this.data = data; }
@@ -57,7 +66,13 @@ public class PlaceListMapListRVAdapter extends RecyclerView.Adapter<PlaceListMap
             holder.binding.placeIcon.setCropToPadding(true);
 
             holder.binding.showButton.setOnClickListener( v -> {
-                NavHostFragment.findNavController(fragment).popBackStack(); // Починить
+//                NavHostFragment.findNavController(fragment).popBackStack(); // Починить
+//                NavHostFragment.findNavController(fragment).getPreviousBackStackEntry().getSavedStateHandle().set("Latitude",10);
+                Bundle bundle = new Bundle();
+                bundle.putDoubleArray(fragment.KEY_FOR_DATA, new double[]{data.get(position).getLatitude(), data.get(position).getLongitude()});
+
+                fragment.getParentFragmentManager().setFragmentResult(fragment.REQUEST_CODE_FOR_LATITUDE, bundle);
+                NavHostFragment.findNavController(fragment).popBackStack();
             });
 
             holder.itemView.setAnimation(AnimationUtils.

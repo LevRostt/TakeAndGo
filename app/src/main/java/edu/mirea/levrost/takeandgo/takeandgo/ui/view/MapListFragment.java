@@ -18,8 +18,10 @@ import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.PlaceViewModel;
 public class MapListFragment extends Fragment {
 
     private MaplistFragmentBinding mBinding;
-
     private PlaceViewModel mViewModel;
+
+    public static final String REQUEST_CODE_FOR_LATITUDE = "EXTRA_LATITUDE_DATA";
+    public static final String KEY_FOR_DATA = "KEY_PLACE_CORD_DATA";
 
     @Nullable
     @Override
@@ -35,7 +37,7 @@ public class MapListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mBinding.rvPlacelist.setLayoutManager(new LinearLayoutManager(getContext()));
-        mBinding.rvPlacelist.setAdapter(new PlaceListMapListRVAdapter(this));
+        mBinding.rvPlacelist.setAdapter(new PlaceListMapListRVAdapter(this, mBinding));
 
         mViewModel.getPlaces().observe(getViewLifecycleOwner(), (value) -> {
             ((PlaceListMapListRVAdapter) mBinding.rvPlacelist.getAdapter()).updateData(value);

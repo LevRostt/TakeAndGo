@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.MapFragmentBinding;
@@ -36,6 +38,8 @@ import com.yandex.mapkit.user_location.UserLocationLayer;
 import com.yandex.mapkit.user_location.UserLocationObjectListener;
 import com.yandex.mapkit.user_location.UserLocationView;
 import com.yandex.runtime.image.ImageProvider;
+
+import java.util.Arrays;
 
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.PlaceViewModel;
@@ -59,6 +63,9 @@ public class MapFragment extends Fragment {
 
     private UserViewModel mUserViewModel;
     private PlaceViewModel mPlaceViewModel;
+
+//    public String REQUEST_CODE_FOR_LATITUDE = "EXTRA_LATITUDE_DATA";
+//    public String KEY_FOR_LATITUDE = "KEY_LATITUDE_DATA";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,6 +92,19 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mapView.getMap().move(
+                new CameraPosition(new Point(55.7515, 37.64), 9, 0.0f, 0.0f));
+
+        getParentFragmentManager().setFragmentResultListener(MapListFragment.REQUEST_CODE_FOR_LATITUDE,getViewLifecycleOwner(), (code, data)->{
+//            Log.d("TakeAndGoDev_", Arrays.toString(data.getDoubleArray(MapListFragment.KEY_FOR_DATA)));
+            double[] dataPlace = data.getDoubleArray(MapListFragment.KEY_FOR_DATA);
+
+            mapView.getMap().move(
+                    new CameraPosition(new Point(dataPlace[0], dataPlace[1]), 14.5f, 0.0f, 0.0f),
+                    new Animation(Animation.Type.SMOOTH, 1.5f), null);
+        }); // Так как это слушатель то, в теории(как показала практика), он имеет больший приоритет, поэтому зум создаётся именно на объект
+                //который мы слушаем. Так как внутрь слушателя мы зайдём в конце выполнения всего кода
 
         if (!checkAvaibleUserLocationAccess()) {
             requestUserLocation();
