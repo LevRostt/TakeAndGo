@@ -49,6 +49,7 @@ public class UserViewModel extends AndroidViewModel {
 
                 UserData tempData = new UserData(data.getValue().getName(),
                         data.getValue().getUserId(),
+                        data.getValue().getIdOfVisitedPlaces(),
                         location.getLatitude(),
                         location.getLongitude());
 

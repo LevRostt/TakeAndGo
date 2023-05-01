@@ -15,6 +15,8 @@ import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.RegisterFragmentBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Arrays;
+
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.UserData;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
 
@@ -51,7 +53,7 @@ public class RegisterFragment extends Fragment {
                             NavHostFragment.findNavController(this).navigate(R.id.action_registerFragment_to_mainScreenFragment);
                             Log.d("TakeAndGoDev_Command", "Adding is done!");
 
-                            mViewModel.insertData(new UserData("Test name", mAuth.getUid())); // Тут нужно будет парсить значения имени и вставлять
+                            mViewModel.insertData(new UserData("Test name", mAuth.getUid(), Arrays.asList(1L, 4L))); // Тут нужно будет парсить значения имени и вставлять
 
                             getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
                                     .edit()

@@ -17,6 +17,8 @@ import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.LoginFragmentBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Arrays;
+
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.UserData;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
 
@@ -44,13 +46,13 @@ public class LoginFragment extends Fragment {
 
         mBinding.testUserButton.setOnClickListener(view ->{
             NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_mainScreenFragment);
-            Log.d("TakeAndGoDev_Command_UID",  String.valueOf(0));
+            Log.d("TakeAndGoDev_Command_UID",  String.valueOf(1));
             getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
                     .edit()
-                    .putString("id", String.valueOf(0))
+                    .putString("id", String.valueOf(1))
                     .apply();
 
-            mViewModel.insertData(new UserData("Test name", String.valueOf(0))); // Тут нужно будет парсить значения имени и вставлять
+            mViewModel.insertData(new UserData("Test name", String.valueOf(1), Arrays.asList(1L, 4L))); // Тут нужно будет парсить значения имени и вставлять
 
         });
 
@@ -74,7 +76,7 @@ public class LoginFragment extends Fragment {
                                     .putString("id", mAuth.getUid())
                                     .apply();
 
-                            mViewModel.insertData(new UserData("Test name", mAuth.getUid())); // Тут нужно будет парсить значения имени и вставлять
+                            mViewModel.insertData(new UserData("Test name", mAuth.getUid(), Arrays.asList(1L, 4L))); // Тут нужно будет парсить значения имени и вставлять
 
                         } else{
                             Log.d("TakeAndGoDev_Command", "Auth doesn't done!");

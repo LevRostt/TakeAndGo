@@ -9,7 +9,7 @@ import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
 @Entity
 public class PlaceEntity {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public long id;
 
     @ColumnInfo(name = "icon_pass")
@@ -22,7 +22,8 @@ public class PlaceEntity {
 
     public PlaceEntity(){}
 
-    public PlaceEntity(String name, double latitude, double longitude){
+    public PlaceEntity(long id, String name, double latitude, double longitude){
+        this.id = id;
         this.icon = "default_question_mark";
         this.name = name;
         this.latitude = latitude;
@@ -30,13 +31,13 @@ public class PlaceEntity {
         this.description = "";
     }
 
-    public PlaceEntity(String name, String icon, double latitude, double longitude){
-        this(name, latitude, longitude);
+    public PlaceEntity(long id, String name, String icon, double latitude, double longitude){
+        this(id, name, latitude, longitude);
         this.icon = icon;
     }
 
-    public PlaceEntity(String name, String icon, double latitude, double longitude, String description) {
-        this(name, icon, latitude, longitude);
+    public PlaceEntity(long id, String name, String icon, double latitude, double longitude, String description) {
+        this(id, name, icon, latitude, longitude);
         this.description = description;
     }
 

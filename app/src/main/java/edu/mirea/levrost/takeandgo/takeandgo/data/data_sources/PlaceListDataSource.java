@@ -17,7 +17,7 @@ public class PlaceListDataSource {
             ArrayList<Place> resultArr = new ArrayList<>();
 
             for (int i = 0; i < 25; i++){
-                resultArr.add(new Place("Test #" + (i+1), "samurai_image" , i+10, i +10));
+//                resultArr.add(new Place("Test #" + (i+1), "samurai_image" , i+10, i +10));
             }
 
             result.postValue(resultArr);

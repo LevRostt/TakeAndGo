@@ -32,8 +32,8 @@ public class UserDataRepository {
 
     public void updateData(UserData data){
         AppDataBase.databaseWriteExecutor.execute(() -> {
-            dataBaseSource.userDataDao().addProfile(new UserDataEntity(data.getName(), data.getUserId(), data.getLatitude(), data.getLongitude()));
-            dataBaseSource.userDataDao().updateUser(new UserDataEntity(data.getName(),data.getUserId(),data.getLatitude(),data.getLongitude()));
+            dataBaseSource.userDataDao().addProfile(new UserDataEntity(data.getName(), data.getUserId(), data.getIdOfVisitedPlaces() , data.getLatitude(), data.getLongitude()));
+//            dataBaseSource.userDataDao().updateUser(new UserDataEntity(data.getName(),data.getUserId(), data.getIdOfVisitedPlaces() ,data.getLatitude(),data.getLongitude()));
         });
     }
 }

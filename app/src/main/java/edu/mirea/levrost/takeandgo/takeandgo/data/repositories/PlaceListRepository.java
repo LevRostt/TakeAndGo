@@ -38,7 +38,7 @@ public class PlaceListRepository {
 
     public void updateData(Place data){
         AppDataBase.databaseWriteExecutor.execute(()->{
-            dataBaseSource.placeDao().addPlace(new PlaceEntity(data.getName(), data.getIcon(), data.getLatitude(), data.getLongitude(), data.getDescription()));
+            dataBaseSource.placeDao().addPlace(new PlaceEntity(data.getId(), data.getName(), data.getIcon(), data.getLatitude(), data.getLongitude(), data.getDescription()));
         });
     }
 
@@ -46,13 +46,12 @@ public class PlaceListRepository {
         AppDataBase.databaseWriteExecutor.execute(()->{
             List<Place> placeList = new ArrayList<>();
 
-            placeList.add(new Place("Воробьёвы горы", "sparrow_hills"  ,55.71, 37.545));
-            placeList.add(new Place("Парк Олимпийской Деревни", 55.6788, 37.4778));
-            placeList.add(new Place("Парк Никулино", 55.658378, 37.479546 ));
-            placeList.add(new Place("Парк Школьников", 55.668, 37.462 ));
-
+            placeList.add(new Place(1, "Воробьёвы горы", "sparrow_hills"  ,55.71, 37.545));
+            placeList.add(new Place(2, "Парк Олимпийской Деревни", 55.6788, 37.4778));
+            placeList.add(new Place(3, "Парк Никулино", 55.658378, 37.479546 ));
+            placeList.add(new Place(4, "Парк Школьников", 55.668, 37.462 ));
             for (Place place: placeList){
-                dataBaseSource.placeDao().addPlace(new PlaceEntity(place.getName(),place.getIcon(),place.getLatitude(),place.getLongitude()));
+                dataBaseSource.placeDao().addPlace(new PlaceEntity(place.getId(), place.getName(),place.getIcon(),place.getLatitude(),place.getLongitude()));
             }
 
         });

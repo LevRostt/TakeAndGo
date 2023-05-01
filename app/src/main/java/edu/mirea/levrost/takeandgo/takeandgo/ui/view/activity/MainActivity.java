@@ -103,14 +103,15 @@ public class MainActivity extends FragmentActivity {
     };
 
     private Boolean isLogin(){
-        String uId = this.getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", null);
+        String uId = getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", "0");
 
-        if ( uId != null){
-
-            mViewModel.insertData(new UserData("Test name", uId)); //Позже парсить имя из базы
-
+        if (!uId.equals("0")){
+            mViewModel.insertData(new UserData("Test name", uId, Arrays.asList(1L, 3L))); //Позже парсить имя и список из базы
+            mViewModel = null;
             return true;
         }
+
+        mViewModel = null;
         return false;
     }
 
