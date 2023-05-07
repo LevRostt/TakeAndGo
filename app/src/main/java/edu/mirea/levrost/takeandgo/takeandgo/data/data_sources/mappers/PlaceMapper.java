@@ -9,7 +9,7 @@ public class PlaceMapper {
 
     public static Place toDomainModel(PlaceEntity entity){
         if (entity != null)
-            return new Place(entity.id, entity.name, entity.icon, entity.latitude, entity.longitude);
+            return new Place(entity.id, entity.name, entity.radius, entity.icon, entity.latitude, entity.longitude);
         return null;
     }
 

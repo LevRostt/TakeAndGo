@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/background_dark_bottom"
-    android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ProfileScreenFragment">
+    android:background="@drawable/background_half_dark_top_center"
+    tools:context="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ProfileFragment">
+
 
 <!--    <ImageButton-->
 <!--        android:layout_width="100dp"-->
@@ -18,24 +14,12 @@
 <!--        android:layout_marginStart="-30dp"-->
 <!--        android:layout_marginTop="20dp"-->
 <!--        android:background="@drawable/button_border_light_style"-->
-<!--        android:padding="10dp"-->
-<!--        android:paddingEnd="20dp"-->
-<!--        android:scaleType="fitEnd"-->
-<!--        android:src="@drawable/map"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="73dp"-->
-    <!--            android:layout_height="31dp"-->
-    <!--            android:layout_marginStart="4dp"-->
-    <!--            android:layout_marginTop="8dp"-->
-    <!--            android:background="@drawable/button_based_style"-->
-    <!--            android:scaleType="fitEnd"-->
-    <!--            android:src="@drawable/map"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:src="@drawable/map"-->
+<!--        android:scaleType="fitEnd"-->
+<!--        android:padding="10dp"-->
+<!--        android:paddingEnd="20dp"/>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -57,18 +41,17 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:layout_width="67dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="User id: "
+                android:text="id: "
                 android:textColor="@color/black" />
 
             <TextView
+                android:text="11111111"
                 android:id="@+id/userId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="00000000000"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -90,10 +73,10 @@
 
         <ImageView
             android:id="@+id/user_icon"
+            android:clipToOutline="true"
             android:layout_width="155dp"
             android:layout_height="155dp"
             android:background="@drawable/button_based_style"
-            android:clipToOutline="true"
             android:scaleType="centerInside"
             android:src="@drawable/samurai_image" />
     </LinearLayout>
@@ -116,8 +99,6 @@
             android:layout_marginStart="4dp"
             android:gravity="center"
             android:text="LevRost"
-            android:maxLines="1"
-            android:maxLength="12"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="#0"
+            android:text="#-1"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -136,24 +117,40 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <Button
+        android:id="@+id/changePrivaty"
+        android:layout_width="161dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/border_green_left_to_right"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+        android:text="Подписаться"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/black"
+        android:textScaleX="0.9"
+        android:textAllCaps="false"/>
+
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
-        app:layout_constraintVertical_bias="0.049">
+        app:layout_constraintTop_toBottomOf="@+id/changePrivaty"
+        app:layout_constraintVertical_bias="0.091">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/friendsCont"
+            android:id="@+id/friendsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:id="@+id/friends_button"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@drawable/button_border_light_style"
@@ -168,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="76dp"
-                android:text="Friends"
+                android:text="Подписки"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -183,7 +180,6 @@
             android:layout_marginStart="24dp">
 
             <ImageButton
-                android:id="@+id/placeListBtn"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@drawable/button_border_light_style"
@@ -199,7 +195,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="76dp"
-                android:text="Place List"
+                android:text="Список мест"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -220,86 +216,27 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <ImageButton
+            android:background="@drawable/button_border_light_style"
             android:layout_width="200dp"
             android:layout_height="100dp"
-            android:background="@drawable/button_border_light_style"
-            android:paddingTop="10dp"
-            android:paddingBottom="25dp"
             android:scaleType="centerInside"
             android:src="@drawable/trophy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingTop="10dp"
+            android:paddingBottom="25dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
-            android:text="Achievements"
+            android:text="Достижения"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--    <Button-->
-<!--        android:id="@+id/button2"-->
-<!--        android:layout_width="156dp"-->
-<!--        android:layout_height="38dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:background="@drawable/button_green_light_style"-->
-<!--        android:gravity="center"-->
-<!--        android:paddingHorizontal="10dp"-->
-<!--        android:text="change privaty"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textScaleX="0.9"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/achievements" />-->
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/exitLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_green_light_style"
-        android:gravity="center"
-        android:layout_marginTop="35dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/achievements">
-
-        <ImageButton
-            android:id="@+id/exitButton"
-            android:layout_width="127dp"
-            android:layout_height="40dp"
-            android:background="@drawable/button_green_light_style"
-            android:paddingVertical="5dp"
-            android:paddingEnd="10dp"
-            android:scaleType="fitEnd"
-            android:src="@drawable/exit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:text="Exit"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/exitButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.346"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.523" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>

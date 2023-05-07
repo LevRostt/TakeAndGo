@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
+
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.UserData;
 import edu.mirea.levrost.takeandgo.takeandgo.data.repositories.UserDataRepository;
 
@@ -63,5 +64,19 @@ public class UserViewModel extends AndroidViewModel {
     public void deleteUserData(UserData userdata){
         repo.deleteUser(userdata);
     }
+
+    public void insertPlace(long idToAdd){
+        data.observe(getApplication(), user -> {
+            //Добавить асинърон
+            for (long id: user.getIdOfVisitedPlaces()){
+                if (id == idToAdd){
+                    return;
+                }
+            }
+            user.addVisitPlace(idToAdd);
+
+            repo.updateUserDataPlace(user);
+        });
+    };
 
 }

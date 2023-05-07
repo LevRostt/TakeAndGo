@@ -9,18 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.takeandgo.databinding.UserProfileFragmentBinding;
+import com.example.takeandgo.databinding.ProfileFragmentBinding;
 
 
-public class UserProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
-    private UserProfileFragmentBinding mBinding;
+    private ProfileFragmentBinding mBinding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mBinding = UserProfileFragmentBinding.inflate(inflater, container, false);
+        mBinding = ProfileFragmentBinding.inflate(inflater, container, false);
         mBinding.userIcon.setClipToOutline(true);
 
         mBinding.friendsButton.setOnClickListener(view ->{

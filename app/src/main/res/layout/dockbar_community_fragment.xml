@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+    android:background="@drawable/top_dockbar">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/top_dockbar"
         android:paddingHorizontal="35dp"
         android:paddingTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,41 +18,29 @@
 
         <Button
             android:id="@+id/topCommunity"
-            android:text="Top \n community"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
             android:background="@drawable/inner_dockbar_bordered"
             android:padding="5dp"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:text="Community"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/topFriends"
-            android:text="Top\nfriends"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
             android:background="@drawable/inner_dockbar_bordered"
             android:padding="5dp"
-            android:scaleType="centerInside"/>
-
-        <Button
-            android:id="@+id/findFriends"
-            android:text="Find\nfriends"
+            android:scaleType="centerInside"
+            android:text="Friends"
             android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="10dp"
-            android:background="@drawable/inner_dockbar_bordered"
-            android:scaleType="centerInside"/>
+            android:textColor="@color/black" />
 
 
     </LinearLayout>

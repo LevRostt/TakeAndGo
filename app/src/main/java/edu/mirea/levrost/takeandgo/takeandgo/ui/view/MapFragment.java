@@ -1,10 +1,16 @@
 package edu.mirea.levrost.takeandgo.takeandgo.ui.view;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,7 +124,6 @@ public class MapFragment extends Fragment {
         mBinding.userLocationBtm.setOnClickListener((v) ->{
             jumpToUser(2);
         });
-
     }
 
     @Override
@@ -173,7 +178,10 @@ public class MapFragment extends Fragment {
             zoomOnUser = 9.5f;
             return false;
         }
-        else {return true;}
+        else {
+            createMapPlaces();
+            return true;
+        }
     }
 
     private void jumpToUser(float cameraDuration){
@@ -181,7 +189,31 @@ public class MapFragment extends Fragment {
             requestUserLocation();
         } else {
             if (!updateUserLocation()) {
-                Toast.makeText(getActivity(), "Please, turn on your location", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    // Если геолокация выключена, выводим диалоговое окно с запросом на включение
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Чтобы получить возможность полноценно взаимодействовать с приложением, пожалуйста, включите геокацию.")
+                            .setCancelable(false)
+                            .setPositiveButton("Включить", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Открываем настройки геолокации
+                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Закрываем диалоговое окно
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+                }
             }
             userLocationLayer.setVisible(true);
             mapView.getMap().move(
@@ -230,18 +262,24 @@ public class MapFragment extends Fragment {
             return true;
         };
 
-        mPlaceViewModel.getPlaces().observe(getViewLifecycleOwner(), places -> {
-            for (Place place: places){
+        mUserViewModel.getData().observe(getViewLifecycleOwner(), data -> {
+            mPlaceViewModel.getPlaces().observe(getViewLifecycleOwner(), places -> {
+                for (Place place: places){
+                    if (userPoint != null && Place.calculateDistance(userPoint.getLatitude(), userPoint.getLongitude(), place) < Place.showDistance) {
+                        PlacemarkMapObject object = mapObjects.addPlacemark(new Point(place.getLatitude(), place.getLongitude()));
+                        object.setIcon(ImageProvider.fromResource(getContext(), R.drawable.pin),
+                                new IconStyle().setAnchor(new PointF(0.5f, 0.7f))
+                                        .setScale(0.04f));
+                        object.setVisible(true);
+                        object.setUserData(place);
+                        object.addTapListener(objectTapListener);
+                    } // Настройка видимости места
 
-                PlacemarkMapObject object = mapObjects.addPlacemark(new Point(place.getLatitude(),place.getLongitude()));
-                object.setIcon(ImageProvider.fromResource(getContext(), R.drawable.pin),
-                        new IconStyle().setAnchor(new PointF(0.5f, 0.7f))
-                        .setScale(0.04f));
-                object.setVisible(true);
-                object.setUserData(place);
-
-                object.addTapListener(objectTapListener);
-            }
+                    if (userPoint != null && Place.calculateDistance(userPoint.getLatitude(), userPoint.getLongitude(), place) < place.getRadius()){
+                        mUserViewModel.insertPlace(place.getId());
+                    }
+                }
+            });
         });
     }
 

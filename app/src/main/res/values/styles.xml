@@ -19,4 +19,20 @@
         <item name="itemTextAppearanceActive">?attr/textAppearanceCaption</item>
         <item name="itemHorizontalTranslationEnabled">true</item>
     </style>
+
+    <style name="CommunityNavigationView">
+        <item name="enforceTextAppearance">true</item>
+        <item name="enforceMaterialTheme">true</item>
+        <item name="android:background">@drawable/top_dockbar</item>
+
+        <item name="itemBackground">@drawable/inner_dockbar_bordered</item>
+        <item name="paddingEnd">50dp</item>
+        <item name="itemIconTint">@color/mtrl_navigation_bar_colored_item_tint</item>
+        <!--        <item name="itemIconTint"></item>-->
+
+        <item name="itemRippleColor">@color/mtrl_navigation_bar_colored_ripple_color</item>
+        <item name="itemTextAppearanceInactive">?attr/textAppearanceCaption</item>
+        <item name="itemTextAppearanceActive">?attr/textAppearanceCaption</item>
+        <item name="itemHorizontalTranslationEnabled">true</item>
+    </style>
 </resources>

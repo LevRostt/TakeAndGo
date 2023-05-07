@@ -9,23 +9,24 @@
         android:id="@+id/communityScreenFragment"
         android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.CommunityScreenFragment"
         android:label="community_screen_fragmnet"
-        tools:layout="@layout/community_screen_fragmnet" >
+        tools:layout="@layout/community_screen_fragment" >
         <action
             android:id="@+id/action_communityScreenFragment_to_profileScreenFragment"
-            app:destination="@id/profileScreenFragment" />
+            app:destination="@id/profileFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/profileScreenFragment"
-        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ProfileScreenFragment"
-        android:label="profilescreen_fragment"
-        tools:layout="@layout/profilescreen_fragment" >
-        <action
-            android:id="@+id/action_profileScreenFragment_to_visitListFragment"
-            app:destination="@id/visitListFragment" />
-    </fragment>
+
     <fragment
         android:id="@+id/visitListFragment"
         android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.VisitListFragment"
         android:label="visitlist_fragment"
         tools:layout="@layout/visitlist_fragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_visitListFragment"
+            app:destination="@id/visitListFragment" />
+    </fragment>
 </navigation>

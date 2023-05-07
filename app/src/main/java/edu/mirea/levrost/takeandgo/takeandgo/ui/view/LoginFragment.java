@@ -52,7 +52,7 @@ public class LoginFragment extends Fragment {
                     .putString("id", String.valueOf(1))
                     .apply();
 
-            mViewModel.insertData(new UserData("Test name", String.valueOf(1), Arrays.asList(1L, 4L))); // Тут нужно будет парсить значения имени и вставлять
+            mViewModel.insertData(new UserData("Test name", String.valueOf(1), Arrays.asList())); // Тут нужно будет парсить значения имени и вставлять
 
         });
 

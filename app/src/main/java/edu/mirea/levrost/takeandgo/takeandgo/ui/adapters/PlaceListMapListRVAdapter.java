@@ -48,23 +48,7 @@ public class PlaceListMapListRVAdapter extends RecyclerView.Adapter<PlaceListMap
         notifyDataSetChanged();
     }
 
-    private static final double EARTH_RADIUS = 6371.0 * 1000.0; // Earth radius in meters
 
-    public int calculateDistance(Place place) { // calculating distance in meters
-        if (userData != null) { // check do we have user data
-            double dLat = Math.toRadians(userData.getLatitude() - place.getLatitude());
-            double dLon = Math.toRadians(userData.getLongitude() - place.getLongitude());
-
-            double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                    Math.cos(Math.toRadians(place.getLatitude())) * Math.cos(Math.toRadians(userData.getLatitude())) *
-                            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-
-            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-            return (int) (EARTH_RADIUS * c);
-        }
-        return 10000; // if we don't see user data return 1000, that mean distance more bigger, that we can show on map
-    }
 
 
     @NonNull
@@ -81,9 +65,8 @@ public class PlaceListMapListRVAdapter extends RecyclerView.Adapter<PlaceListMap
         Context context = holder.itemView.getContext();
         if (placesData.get(position) != null) {
 
-            int placeDistance = calculateDistance(placesData.get(position));
-
-            if (placeDistance < 3000) { // Change this cond to "true", if you want test app.
+            if (userData != null) {
+                int placeDistance = Place.calculateDistance(userData.getLatitude(), userData.getLongitude(), placesData.get(position));
 
                 holder.binding.placeLayout.setVisibility(View.VISIBLE);
 
@@ -109,10 +92,7 @@ public class PlaceListMapListRVAdapter extends RecyclerView.Adapter<PlaceListMap
                         loadAnimation(context, context.
                                 getResources().
                                 getIdentifier("fade_out", "anim", context.getPackageName()))); // Получение созданной заранее анимации в fade_out
-            }
-
-
-            else {
+            } else {
                 holder.binding.placeLayout.setVisibility(View.GONE);
             }
         }

@@ -22,11 +22,18 @@ public class UserDataRepository {
 
     public LiveData<UserData> getUserDataBase() {
         return Transformations.map(
-            dataBaseSource.userDataDao().getData(), UserMapper::toDomainModel);}
+            dataBaseSource.userDataDao().getData(), UserMapper::toDomainModel);
+    }
 
     public void deleteUser(UserData data){
         AppDataBase.databaseWriteExecutor.execute(() ->{
             dataBaseSource.userDataDao().deleteUser(new UserDataEntity());
+        });
+    }
+
+    public void updateUserDataPlace(UserData data){
+        AppDataBase.databaseWriteExecutor.execute(()->{
+            dataBaseSource.userDataDao().updateUser(new UserDataEntity(data.getName(), data.getUserId(), data.getIdOfVisitedPlaces(), data.getLatitude(), data.getLongitude()));
         });
     }
 

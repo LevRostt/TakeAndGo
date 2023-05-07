@@ -53,4 +53,8 @@ public class UserData {
     public double getLongitude() {
         return longitude;
     }
+
+    public void addVisitPlace(long id){
+        this.idOfVisitedPlaces.add(id);
+    }
 }

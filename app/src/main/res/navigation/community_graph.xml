@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/communityScreenFragment">
+    <fragment
+        android:id="@+id/communityScreenFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.CommunityScreenFragment"
+        android:label="community_screen_fragmnet"
+        tools:layout="@layout/community_screen_fragment" />
+
+    <fragment
+        android:id="@+id/communityFriendsScreenFragment"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.CommunityScreenFragment"
+        android:label="community_screen_fragmnet"
+        tools:layout="@layout/community_screen_fragment" />
+</navigation>

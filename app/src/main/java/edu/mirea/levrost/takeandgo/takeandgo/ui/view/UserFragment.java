@@ -1,10 +1,8 @@
 package edu.mirea.levrost.takeandgo.takeandgo.ui.view;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedDispatcher;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -15,22 +13,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.takeandgo.databinding.ProfilescreenFragmentBinding;
+import com.example.takeandgo.databinding.UserFragmentBinding;
 
 import edu.mirea.levrost.takeandgo.takeandgo.ui.view.activity.MainActivity;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
 
 
-public class ProfileScreenFragment extends Fragment {
+public class UserFragment extends Fragment {
 
-    private ProfilescreenFragmentBinding mBinding;
+    private UserFragmentBinding mBinding;
     private UserViewModel mViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mBinding = ProfilescreenFragmentBinding.inflate(inflater, container, false);
+        mBinding = UserFragmentBinding.inflate(inflater, container, false);
         mViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
 
         mBinding.userIcon.setClipToOutline(true);
@@ -44,7 +42,7 @@ public class ProfileScreenFragment extends Fragment {
         mBinding.placeListBtn.setOnClickListener(view -> {
 
             NavHostFragment.findNavController(this)
-                    .navigate(ProfileScreenFragmentDirections.actionProfileFragmentToVisitListFragment());
+                    .navigate(UserFragmentDirections.actionProfileFragmentToVisitListFragment());
 
         });
 

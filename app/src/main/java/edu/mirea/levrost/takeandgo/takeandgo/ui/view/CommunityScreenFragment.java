@@ -11,21 +11,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.takeandgo.databinding.CommunityScreenFragmnetBinding;
+import com.example.takeandgo.databinding.CommunityScreenFragmentBinding;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.adapters.ProfileListRVAdapter;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.ProfileViewModel;
 
 
 public class CommunityScreenFragment extends Fragment {
 
-    private CommunityScreenFragmnetBinding mBinding;
+    private CommunityScreenFragmentBinding mBinding;
     private ProfileViewModel mViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mBinding = CommunityScreenFragmnetBinding.inflate(inflater, container, false);
+        mBinding = CommunityScreenFragmentBinding.inflate(inflater, container, false);
 
         return mBinding.getRoot();
     }

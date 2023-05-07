@@ -19,25 +19,27 @@ public class PlaceEntity {
     public double latitude;
     public double longitude;
     public String description;
+    public long radius;
 
     public PlaceEntity(){}
 
-    public PlaceEntity(long id, String name, double latitude, double longitude){
+    public PlaceEntity(long id, String name, long radius, double latitude, double longitude){
         this.id = id;
         this.icon = "default_question_mark";
         this.name = name;
+        this.radius = radius;
         this.latitude = latitude;
         this.longitude = longitude;
         this.description = "";
     }
 
-    public PlaceEntity(long id, String name, String icon, double latitude, double longitude){
-        this(id, name, latitude, longitude);
+    public PlaceEntity(long id, String name, long radius, String icon, double latitude, double longitude){
+        this(id, name, radius,latitude, longitude);
         this.icon = icon;
     }
 
-    public PlaceEntity(long id, String name, String icon, double latitude, double longitude, String description) {
-        this(id, name, icon, latitude, longitude);
+    public PlaceEntity(long id, String name, long radius, String icon, double latitude, double longitude, String description) {
+        this(id, name, radius, icon, latitude, longitude);
         this.description = description;
     }
 

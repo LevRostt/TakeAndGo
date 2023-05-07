@@ -12,6 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.takeandgo.databinding.MaplistFragmentBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.Place;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.adapters.PlaceListMapListRVAdapter;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.PlaceViewModel;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
@@ -41,12 +46,23 @@ public class MapListFragment extends Fragment {
         mBinding.rvPlacelist.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.rvPlacelist.setAdapter(new PlaceListMapListRVAdapter(this));
 
-        mPaceViewModel.getPlaces().observe(getViewLifecycleOwner(), (value) -> {
-            ((PlaceListMapListRVAdapter) mBinding.rvPlacelist.getAdapter()).updateData(value);
-        });
-
         mUserViewModel.getData().observe(getViewLifecycleOwner(), (data) ->{
             ((PlaceListMapListRVAdapter) mBinding.rvPlacelist.getAdapter()).updateData(data);
+
+            mPaceViewModel.getPlaces().observe(getViewLifecycleOwner(), (value) -> {
+
+                List<Place> insertList = new ArrayList<>();
+                new Thread(()->{
+                    for (Place place : value){
+                        int placeDistance = Place.calculateDistance(data.getLatitude(), data.getLongitude(), place);
+                        if (placeDistance < Place.showDistance){
+                            insertList.add(place);
+                        }
+                    }
+                }).start();
+                ((PlaceListMapListRVAdapter) mBinding.rvPlacelist.getAdapter()).updateData(insertList);
+            });
+
         });
 
     }
