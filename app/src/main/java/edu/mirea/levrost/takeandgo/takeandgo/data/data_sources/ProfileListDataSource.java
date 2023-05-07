@@ -16,7 +16,7 @@ public class ProfileListDataSource {
             ArrayList<Profile> resultArr = new ArrayList<>();
 
             for (int i = 0; i < 25; i++){
-                resultArr.add(new Profile("Test #" + (i+1), "samurai_image", i+1, i));
+                resultArr.add(new Profile("Test #" + (i+1), "samurai_image", i+1, Integer.toString(i)));
             }
 
             result.postValue(resultArr);

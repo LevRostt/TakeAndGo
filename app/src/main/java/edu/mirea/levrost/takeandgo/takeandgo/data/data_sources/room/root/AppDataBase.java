@@ -20,7 +20,7 @@ import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.entites.Prof
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.entites.UserDataEntity;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
 
-@Database(entities = {PlaceEntity.class, ProfileEntity.class, UserDataEntity.class}, version = 10)
+@Database(entities = {PlaceEntity.class, ProfileEntity.class, UserDataEntity.class}, version = 1)
 public abstract class AppDataBase extends RoomDatabase {
 
     public abstract PlaceDao placeDao();

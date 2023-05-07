@@ -23,22 +23,27 @@ public class UserDataEntity {
     @TypeConverters({PlacesConvertor.class})
     public List<Long> idOfVisitedPlaces;
 
+    @TypeConverters({FriendsConvertor.class})
+    public List<String> idFriends;
+
     public UserDataEntity(){}
 
     public UserDataEntity(String name, String userId){
         this.name = name;
         this.userId = userId;
         this.id = 0;
-        this.idOfVisitedPlaces = new ArrayList<Long>();
+        this.idOfVisitedPlaces = new ArrayList<>();
+        this.idFriends = new ArrayList<>();
     }
 
-    public UserDataEntity(String name, String userId, List<Long> idOfVisitedPlaces){
+    public UserDataEntity(String name, String userId, List<Long> idOfVisitedPlaces, List<String> idFriends){
         this(name, userId);
+        this.idFriends = idFriends;
         this.idOfVisitedPlaces = idOfVisitedPlaces;
     }
 
-    public UserDataEntity(String name, String userId, List<Long> idOfVisitedPlaces ,double latitude, double longitude) {
-        this(name, userId, idOfVisitedPlaces);
+    public UserDataEntity(String name, String userId, List<Long> idOfVisitedPlaces, List<String> idFriends,double latitude, double longitude) {
+        this(name, userId, idOfVisitedPlaces, idFriends);
         this.latitude = latitude;
         this.longitude = longitude;
     }

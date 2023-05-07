@@ -11,18 +11,18 @@ public class ProfileEntity {
     public String icon;
     public String name;
     public int rating;
-    public int uId;
+    public String uId;
 
     public ProfileEntity(){}
 
-    public ProfileEntity(String name, int rating, int userId){
+    public ProfileEntity(String name, int rating, String userId){
         this.icon = "default_question_mark";
         this.name = name;
         this.rating = rating;
         this.uId = userId;
     }
 
-    public ProfileEntity(String name, String icon, int rating, int userId) {
+    public ProfileEntity(String name, String icon, int rating, String userId) {
         this(name, rating, userId);
         this.icon = icon;
     }

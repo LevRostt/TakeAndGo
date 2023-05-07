@@ -1,15 +1,23 @@
 package edu.mirea.levrost.takeandgo.takeandgo.ui.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.mirea.levrost.takeandgo.takeandgo.data.models.Profile;
+import edu.mirea.levrost.takeandgo.takeandgo.ui.view.CommunityScreenFragment;
+import edu.mirea.levrost.takeandgo.takeandgo.ui.view.CommunityScreenFragmentDirections;
+
+import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.ProfileOnCommunityScreenFragmentBinding;
 
 import java.util.ArrayList;
@@ -18,24 +26,24 @@ import java.util.List;
 
 public class ProfileListRVAdapter extends RecyclerView.Adapter<ProfileListRVAdapter.ProfileViewHolder> {
     List<Profile> data;
+    private CommunityScreenFragment fragment;
 
-    public ProfileListRVAdapter(){ this.data = new ArrayList<>(); }
+    public ProfileListRVAdapter(CommunityScreenFragment fragment){
+        this.data = new ArrayList<>();
+        this.fragment = fragment;
+    }
 
     public ProfileListRVAdapter(List<Profile> data){ this.data = data; }
 
     public void updateData(List<Profile> newData) {
-        newData.sort(new Comparator<Profile>() {
-            @Override
-            public int compare(Profile o1, Profile o2) {
-                if (o1.getRating() < o2.getRating()){
-                    return 1;
-                }
-                return -1;
+        newData.sort((o1, o2) -> {
+            if (o1.getRating() < o2.getRating()){
+                return 1;
             }
+            return -1;
         });
 
         data = newData;
-
         notifyDataSetChanged();
     }
 
@@ -59,6 +67,13 @@ public class ProfileListRVAdapter extends RecyclerView.Adapter<ProfileListRVAdap
         holder.binding.profileId.setText(String.valueOf(data.get(position).getId()));
         holder.binding.profileIcon.setClipToOutline(true);
         holder.binding.profileIcon.setCropToPadding(true);
+
+        holder.binding.showButton.setOnClickListener(v -> {
+            NavHostFragment.findNavController(fragment).navigate(
+                    CommunityScreenFragmentDirections
+                            .actionCommunityScreenFragmentToProfileScreenFragment(data.get(position).getId())
+                            .setIsFriend(fragment.getArguments().getBoolean("isFriend")));
+        });
 
         holder.itemView.setAnimation(AnimationUtils.
                 loadAnimation(context, context.

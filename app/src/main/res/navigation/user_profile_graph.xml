@@ -23,5 +23,10 @@
         <action
             android:id="@+id/action_ProfileFragment_to_visitListFragment"
             app:destination="@id/visitListFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_community_screen"
+            app:destination="@id/community_screen" />
     </fragment>
+    <include
+        app:graph="@navigation/community_screen_graph" />
 </navigation>

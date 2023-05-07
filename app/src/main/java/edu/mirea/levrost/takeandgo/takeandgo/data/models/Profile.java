@@ -4,16 +4,16 @@ public class Profile {
     private String icon;
     private String name;
     private int rating;
-    private int id;
+    private String id;
 
-    public Profile(String name, int rating, int id) {
+    public Profile(String name, int rating, String id) {
         this.name = name;
         this.rating = rating;
         this.id = id;
         this.icon = "default_question_mark";
     }
 
-    public Profile(String name, String icon, int rating, int id) {
+    public Profile(String name, String icon, int rating, String id) {
         this(name, rating, id);
         this.icon = icon;
     }
@@ -30,7 +30,7 @@ public class Profile {
         return rating;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 }

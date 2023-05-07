@@ -8,6 +8,7 @@ import android.location.Location;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -20,6 +21,7 @@ import edu.mirea.levrost.takeandgo.takeandgo.data.repositories.UserDataRepositor
 public class UserViewModel extends AndroidViewModel {
     private UserDataRepository repo;
     private LiveData<UserData> data;
+    private UserData localUser;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     public UserViewModel(@NonNull Application application) {
@@ -51,6 +53,7 @@ public class UserViewModel extends AndroidViewModel {
                 UserData tempData = new UserData(data.getValue().getName(),
                         data.getValue().getUserId(),
                         data.getValue().getIdOfVisitedPlaces(),
+                        data.getValue().getIdFriends(),
                         location.getLatitude(),
                         location.getLongitude());
 
@@ -65,18 +68,66 @@ public class UserViewModel extends AndroidViewModel {
         repo.deleteUser(userdata);
     }
 
-    public void insertPlace(long idToAdd){
-        data.observe(getApplication(), user -> {
-            //Добавить асинърон
-            for (long id: user.getIdOfVisitedPlaces()){
-                if (id == idToAdd){
-                    return;
-                }
-            }
-            user.addVisitPlace(idToAdd);
-
-            repo.updateUserDataPlace(user);
+    public void insertPlace(long idToAdd, LifecycleOwner lifecycleOwner){
+        data.observe(lifecycleOwner, user -> { //Отработает только при подписке и изменениях
+            localUser = user;
+            insertPlaceInThread(idToAdd);
         });
-    };
+        insertPlaceInThread(idToAdd);
+    }
 
+    public void insertFriend(String idToAdd, LifecycleOwner lifecycleOwner){
+        data.observe(lifecycleOwner, user -> {
+            localUser = user;
+            insertFriendInThread(idToAdd);
+        });
+        insertFriendInThread(idToAdd);
+    }
+
+
+    public void deleteFriend(String idToDel, LifecycleOwner lifecycleOwner){
+        data.observe(lifecycleOwner, user -> {
+            localUser = user;
+            deleteFriendInThread(idToDel);
+        });
+        deleteFriendInThread(idToDel);
+    }
+
+    private void deleteFriendInThread(String idToDel){
+        new Thread(()->{
+            if (localUser != null) {
+                localUser.deleteFriend(idToDel);
+                repo.updateUserDataPlace(localUser);
+            }
+        }).start();
+    }
+
+    private void insertFriendInThread(String idToAdd){
+        new Thread(()-> {
+            if (localUser != null) {
+                for (String id : localUser.getIdFriends()) {
+                    if (id.equals(idToAdd)) {
+                        return;
+                    }
+                }
+                localUser.addFriend(idToAdd);
+                repo.updateUserDataPlace(localUser);
+            }
+        }).start();
+    }
+
+    private void insertPlaceInThread(long idToAdd){
+        new Thread(()-> {
+            if (localUser != null) { //Отрабатывает в остальных случаях
+                for (long id : localUser.getIdOfVisitedPlaces()) {
+                    if (id == idToAdd) {
+                        return;
+                    }
+                }
+                localUser.addVisitPlace(idToAdd);
+
+                repo.updateUserDataPlace(localUser);
+            }
+        }).start();
+    }
 }

@@ -10,6 +10,7 @@ import androidx.room.Query;
 import java.util.List;
 
 import edu.mirea.levrost.takeandgo.takeandgo.data.data_sources.room.entites.ProfileEntity;
+import edu.mirea.levrost.takeandgo.takeandgo.data.models.Profile;
 
 @Dao
 public interface ProfileDao {
@@ -19,6 +20,13 @@ public interface ProfileDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addProfile(ProfileEntity profile);
+
+    @Query("SELECT * FROM ProfileEntity WHERE uId IN (:id)")
+    LiveData<List<ProfileEntity>> getProfilesById(List<String> id);
+
+    @Query("SELECT * FROM ProfileEntity WHERE uId = :id")
+    LiveData<ProfileEntity> getProfileById(String id);
+
 
     @Delete
     void deleteProfile(ProfileEntity profile);

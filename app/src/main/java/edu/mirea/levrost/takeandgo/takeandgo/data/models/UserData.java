@@ -1,5 +1,6 @@
 package edu.mirea.levrost.takeandgo.takeandgo.data.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserData {
@@ -8,11 +9,14 @@ public class UserData {
     private double latitude = 0;
     private double longitude = 0;
     private List<Long> idOfVisitedPlaces;
+    private List<String> idFriends;
 
 
     public UserData(String name, String userId){
         this.name = name;
         this.userId = userId;
+        this.idFriends = new ArrayList<>();
+        this.idOfVisitedPlaces = new ArrayList<>();
     }
 
     public UserData(String name, String userId, List<Long> idOfVisitedPlaces){
@@ -20,8 +24,13 @@ public class UserData {
         this.idOfVisitedPlaces = idOfVisitedPlaces;
     }
 
-    public UserData(String name, String userId, List<Long> visitedPlaces, double latitude, double longitude){
-        this(name, userId, visitedPlaces);
+    public UserData(String name, String userId, List<Long> idOfVisitedPlaces, List<String> idFriends){
+        this(name, userId, idOfVisitedPlaces);
+        this.idFriends = idFriends;
+    }
+
+    public UserData(String name, String userId, List<Long> visitedPlaces, List<String> idFriends,  double latitude, double longitude){
+        this(name, userId, visitedPlaces, idFriends);
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -54,7 +63,17 @@ public class UserData {
         return longitude;
     }
 
+    public List<String> getIdFriends() { return idFriends; }
+
     public void addVisitPlace(long id){
         this.idOfVisitedPlaces.add(id);
+    }
+
+    public void addFriend(String userId){
+        this.idFriends.add(userId);
+    }
+
+    public void deleteFriend(String userId){
+        this.idFriends.remove(userId);
     }
 }

@@ -8,15 +8,58 @@
     tools:context="edu.mirea.levrost.takeandgo.takeandgo.ui.view.CommunityScreenFragment">
 
 
-<androidx.fragment.app.FragmentContainerView
+<!--<androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/community_dockbar"-->
+<!--        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.DockBarCommunityFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:layout="@layout/dockbar_community_fragment" />-->
+
+    <LinearLayout
         android:id="@+id/community_dockbar"
-        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.DockBarCommunityFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
+        android:background="@drawable/top_dockbar"
+        android:layout_marginHorizontal="5dp"
+        android:paddingHorizontal="30dp"
+        android:paddingTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/dockbar_community_fragment" />
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <Button
+            android:id="@+id/topCommunity"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/inner_dockbar_bordered"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:text="Community"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/topFriends"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/inner_dockbar_bordered"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:text="Friends"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/search"
@@ -63,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:paddingBottom="300dp"
+        android:paddingBottom="250dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search" />

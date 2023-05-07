@@ -276,7 +276,7 @@ public class MapFragment extends Fragment {
                     } // Настройка видимости места
 
                     if (userPoint != null && Place.calculateDistance(userPoint.getLatitude(), userPoint.getLongitude(), place) < place.getRadius()){
-                        mUserViewModel.insertPlace(place.getId());
+                        mUserViewModel.insertPlace(place.getId(), getViewLifecycleOwner());
                     }
                 }
             });
