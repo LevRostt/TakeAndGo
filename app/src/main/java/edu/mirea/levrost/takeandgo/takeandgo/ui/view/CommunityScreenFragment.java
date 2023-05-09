@@ -1,9 +1,15 @@
 package edu.mirea.levrost.takeandgo.takeandgo.ui.view;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.CommunityScreenFragmentBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.mirea.levrost.takeandgo.takeandgo.ui.adapters.ProfileListRVAdapter;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.ProfileViewModel;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
@@ -64,6 +74,30 @@ public class CommunityScreenFragment extends Fragment {
             mBinding.topFriends.setEnabled(true);
             mBinding.topCommunity.setBackgroundResource(R.drawable.inner_dockbar_active);
             mBinding.topFriends.setBackgroundResource(R.drawable.inner_dockbar_bordered);
+            mBinding.searchEditText.setMaxLines(1);
+
+//            mBinding.searchEditText.setOnEditorActionListener((v, actionId, event) -> {
+//                Toast.makeText(getContext(), v.getText().toString(), Toast.LENGTH_SHORT).show();
+////                mProfileViewModel.getProfilesById(v.getText()).observe(getViewLifecycleOwner(), data ->{
+////
+////                });
+//                return false;
+//            });
+
+            mBinding.searchEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mProfileViewModel.getProfilesById(s.toString()).observe(getViewLifecycleOwner(), (value)->{
+                        ((ProfileListRVAdapter) mBinding.rvProfilelist.getAdapter()).updateData(value);
+                    });
+                }
+            });
 
             mProfileViewModel.getProfiles().observe(getViewLifecycleOwner(), (value) -> {
                 ((ProfileListRVAdapter) mBinding.rvProfilelist.getAdapter()).updateData(value);
@@ -77,7 +111,7 @@ public class CommunityScreenFragment extends Fragment {
             mBinding.topCommunity.setBackgroundResource(R.drawable.inner_dockbar_bordered);
 
             mUserViewModel.getData().observe(getViewLifecycleOwner(), data -> {
-                mProfileViewModel.getProfilesById(data.getIdFriends()).observe(getViewLifecycleOwner(), (value) -> {
+                mProfileViewModel.getProfilesByListId(data.getIdFriends()).observe(getViewLifecycleOwner(), (value) -> {
                     ((ProfileListRVAdapter) mBinding.rvProfilelist.getAdapter()).updateData(value);
                 });
             });

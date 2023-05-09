@@ -30,7 +30,11 @@ public class ProfileViewModel extends AndroidViewModel {
 
     public LiveData<List<Profile>> getProfiles() {return mProfiles;}
 
-    public LiveData<List<Profile>> getProfilesById(List<String> idToFind) {
+    public LiveData<List<Profile>> getProfilesByListId(List<String> idToFind) {
+        return repo.getDataBaseProfilesByListId(idToFind);
+    }
+
+    public LiveData<List<Profile>> getProfilesById(String idToFind){
         return repo.getDataBaseProfilesById(idToFind);
     }
 

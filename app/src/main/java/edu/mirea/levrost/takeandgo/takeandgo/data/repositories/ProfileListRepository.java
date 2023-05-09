@@ -37,9 +37,15 @@ public class ProfileListRepository {
                 (value) -> value.stream().map(ProfileMapper::toDomainModel).collect(Collectors.toList()));
     }
 
-    public LiveData<List<Profile>> getDataBaseProfilesById(List<String> id){
+    public LiveData<List<Profile>> getDataBaseProfilesByListId(List<String> id){
         return Transformations.map(
-                dataBaseSource.profileDao().getProfilesById(id),
+                dataBaseSource.profileDao().getProfilesByListId(id),
+                (value) -> value.stream().map(ProfileMapper::toDomainModel).collect(Collectors.toList()));
+    }
+
+    public LiveData<List<Profile>> getDataBaseProfilesById(String id){
+        return Transformations.map(
+                dataBaseSource.profileDao().getProfilesById("%"+id+"%"),
                 (value) -> value.stream().map(ProfileMapper::toDomainModel).collect(Collectors.toList()));
     }
 

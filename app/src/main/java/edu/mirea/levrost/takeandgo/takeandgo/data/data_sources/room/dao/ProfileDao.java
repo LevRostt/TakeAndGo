@@ -22,7 +22,10 @@ public interface ProfileDao {
     void addProfile(ProfileEntity profile);
 
     @Query("SELECT * FROM ProfileEntity WHERE uId IN (:id)")
-    LiveData<List<ProfileEntity>> getProfilesById(List<String> id);
+    LiveData<List<ProfileEntity>> getProfilesByListId(List<String> id);
+
+    @Query("SELECT * FROM ProfileEntity WHERE uId LIKE :id")
+    LiveData<List<ProfileEntity>> getProfilesById(String id);
 
     @Query("SELECT * FROM ProfileEntity WHERE uId = :id")
     LiveData<ProfileEntity> getProfileById(String id);
