@@ -33,8 +33,6 @@ public class Place {
         this.description = description;
     }
 
-    //public
-
     private static final double EARTH_RADIUS = 6371.0 * 1000.0; // Earth radius in meters
 
     public static int calculateDistance(double userLatitude, double userLongitude, Place place) { // calculating distance in meters

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.takeandgo.databinding.MaplistFragmentBinding;
@@ -48,6 +49,10 @@ public class MapListFragment extends Fragment {
 
         mUserViewModel.getData().observe(getViewLifecycleOwner(), (data) ->{
             ((PlaceListMapListRVAdapter) mBinding.rvPlacelist.getAdapter()).updateData(data);
+
+            mBinding.buttonToModerationChats.setOnClickListener(v -> {
+                NavHostFragment.findNavController(this).navigate(MapListFragmentDirections.actionMapListFragmentToModerationChatsFragment());
+            });
 
             mPaceViewModel.getPlaces().observe(getViewLifecycleOwner(), (value) -> {
 

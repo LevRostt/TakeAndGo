@@ -41,7 +41,7 @@ public class MainActivity extends FragmentActivity {
     private ActivityMainBinding mBinding;
     private NavController navController;
     private long back_pressed;
-    private UserViewModel mViewModel;
+//    private UserViewModel mViewModel;
 
     private static final int REQUEST_LOCATION_PERMISSION = 1;
     private final String MAPKIT_API_KEY = "e919f593-7414-4fb9-88ec-76426ec26475";
@@ -54,7 +54,7 @@ public class MainActivity extends FragmentActivity {
 
         AppDataBase.buildDatabase(getApplication());
 
-        mViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+//        mViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
 //        AppDataBase.getDataBase(this).userDataDao().addProfile( this.getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", null) );
 
@@ -106,12 +106,12 @@ public class MainActivity extends FragmentActivity {
         String uId = getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", "0");
 
         if (!uId.equals("0")){
-            mViewModel.insertData(new UserData("Test name", uId, Arrays.asList(1L, 3L))); //Позже парсить имя и список из базы
-            mViewModel = null;
+//            mViewModel.insertData(new UserData("Test name", uId, Arrays.asList(1L, 3L))); //Позже парсить имя и список из базы
+//            mViewModel = null;
             return true;
         }
 
-        mViewModel = null;
+//        mViewModel = null;
         return false;
     }
 

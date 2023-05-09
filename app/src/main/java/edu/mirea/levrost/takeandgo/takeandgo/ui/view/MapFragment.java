@@ -99,18 +99,20 @@ public class MapFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mapView.getMap().move(
-                new CameraPosition(new Point(55.7515, 37.64), 9, 0.0f, 0.0f));
+        mapView.getMap()
+                .move(new CameraPosition(new Point(55.7515, 37.64), 9, 0.0f, 0.0f));
 
         getParentFragmentManager().setFragmentResultListener(MapListFragment.REQUEST_CODE_FOR_LATITUDE,getViewLifecycleOwner(), (code, data)->{
-//            Log.d("TakeAndGoDev_", Arrays.toString(data.getDoubleArray(MapListFragment.KEY_FOR_DATA)));
             double[] dataPlace = data.getDoubleArray(MapListFragment.KEY_FOR_DATA);
 
             mapView.getMap().move(
                     new CameraPosition(new Point(dataPlace[0], dataPlace[1]), 14.5f, 0.0f, 0.0f),
                     new Animation(Animation.Type.SMOOTH, 1.5f), null);
-        }); // Так как это слушатель то, в теории(и как показала практика), он имеет больший приоритет, поэтому зум создаётся именно на объект
-                //который мы слушаем. Так как внутрь слушателя мы зайдём после выполнения всего кода
+        }); //Получение данных и дочерних экранов(слушатель будет вызван, если кто-то из дочерних послалкоординаты)
+            // Так как это слушатель то, в теории(и как показала практика),
+            // он имеет больший приоритет, поэтому зум создаётся именно на объект
+            //который мы слушаем. Так как внутрь слушателя мы зайдём после выполнения всего кода
+
 
         if (!checkAvaibleUserLocationAccess()) {
             requestUserLocation();

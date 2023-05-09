@@ -57,6 +57,10 @@ public class PlaceListRepository {
         });
     }
 
+    public LiveData<Integer> size(){
+        return dataBaseSource.placeDao().count();
+    }
+
     public Place findByCoordinates(double latitude, double longitude){
         return PlaceMapper.toDomainModel(dataBaseSource.placeDao().findNameByLatitude(latitude, longitude));
     }

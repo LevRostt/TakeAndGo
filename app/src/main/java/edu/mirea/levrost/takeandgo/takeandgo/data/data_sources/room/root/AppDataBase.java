@@ -54,55 +54,9 @@ public abstract class AppDataBase extends RoomDatabase {
 
     public static AppDataBase buildDatabase(Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), AppDataBase.class, "app_database")
-//                .addCallback(new RoomDatabase.Callback() {
-//                    @Override
-//                    public void onOpen(@NonNull SupportSQLiteDatabase db) {
-//                        super.onCreate(db);
-//                        databaseWriteExecutor.execute(() -> {
-//                            synchronized (AppDataBase.class) {
-//                                for (int i = 0; i < 10; i++) {
-//                                    getDataBase(context).profileDao().addProfile(new ProfileEntity("profile_" + String.valueOf(i), 1, i));
-//                                    getDataBase(context).placeDao().addPlace(new PlaceEntity("default_" + String.valueOf(i), 1, i));
-//                                }
-//                            }
-//                        });
-//                    }
-//                })
                 .fallbackToDestructiveMigration() // Очищает базу данных при изменении. Заменить на миграцию, если будет необходимость.
                 .build();
 
     }
 }
-
-//    private static RoomDatabase.Callback creatingFillDataBase = new RoomDatabase.Callback() {
-//        @Override
-//        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-//            super.onCreate(db);
-//            for (int i = 1; i < 15; i++){
-//                synchronized (AppDataBase.class) {
-//                    if (INSTANCE == null) {
-//                        INSTANCE.profileDao().addProfile(new ProfileEntity("profile_" + String.valueOf(i), 1, i));
-//                        INSTANCE.placeDao().addPlace(new PlaceEntity("default_" + String.valueOf(i), 1, i));
-//                    }
-//                }
-//
-//            }
-//        }
-//    };
-
-//            Room.databaseBuilder(context.applicationContext,
-//    DataDatabase::class.java, "Sample.db")
-//            // prepopulate the database after onCreate was called
-//            .addCallback(object : Callback() {
-//        override fun onCreate(db: SupportSQLiteDatabase) {
-//            super.onCreate(db)
-//            // insert the data on the IO Thread
-//            ioThread {
-//                getInstance(context).dataDao().insertData(PREPOPULATE_DATA)
-//            }
-//        }
-//    })
-//            .build()
-
-//    private void RoomDatabase.Callback builDataBase = Room.databaseBuilder();
 

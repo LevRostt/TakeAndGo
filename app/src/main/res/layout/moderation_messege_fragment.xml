@@ -59,7 +59,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
-            android:hint="Введите имя"
+            android:hint="@string/addName"
             android:maxLength="20"
             android:maxLines="2"
             android:textColor="@color/black"
@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:background="@drawable/border_noradius_light_style"
@@ -100,9 +100,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
-            android:hint="Введите описание"
+            android:hint="@string/addDescription"
             android:maxLines="4"
-            android:text="@string/big_test_text"
+            android:text=""
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             android:textCursorDrawable="@null"
@@ -146,50 +146,50 @@
     </LinearLayout>
 
 
-    <ImageButton
-        android:id="@+id/place_icon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        android:background="@drawable/border_noradius_light_style"
-        android:src="@drawable/question_mark"
-        android:scaleType="centerInside"
-        android:cropToPadding="true"
-        android:contentDescription="select icon"/>
+<!--    <ImageButton-->
+<!--        android:id="@+id/place_icon"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.498"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"-->
+<!--        android:background="@drawable/border_noradius_light_style"-->
+<!--        android:src="@drawable/question_mark"-->
+<!--        android:scaleType="centerInside"-->
+<!--        android:cropToPadding="true"-->
+<!--        android:contentDescription="select icon"/>-->
 
-    <Button
-        android:id="@+id/place_icon_btn"
-        android:layout_width="124dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/button_border_light_style"
-        android:textAllCaps="false"
-        android:textSize="14sp"
-        android:text="select icon"
-        android:textColor="@color/black"
-        android:orientation="horizontal"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_icon" />
+<!--    <Button-->
+<!--        android:id="@+id/place_icon_btn"-->
+<!--        android:layout_width="124dp"-->
+<!--        android:layout_height="31dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="@drawable/button_border_light_style"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textSize="14sp"-->
+<!--        android:text="select icon"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:visibility="visible"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.498"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/place_icon" />-->
 
 
     <LinearLayout
         android:id="@+id/linearLayout7"
-        android:layout_width="183dp"
-        android:layout_height="53dp"
+        android:layout_width="210dp"
+        android:layout_height="65dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/border_noradius_light_style"
         android:orientation="horizontal"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_icon_btn">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
         <TextView
             android:layout_width="wrap_content"
@@ -198,19 +198,19 @@
             android:background="@drawable/border_noradius_light_style"
             android:gravity="center"
             android:paddingHorizontal="6dp"
-            android:text="Количество\nоткытых\nмест: "
+            android:text="Радиус\nоткрытия:\n(в метрах) "
             android:textColor="@color/black"
             android:textSize="12sp" />
 
         <EditText
-            android:id="@+id/placeLvl"
+            android:id="@+id/placeRadius"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
-            android:hint="Введите lvl"
+            android:hint="Введите радиус"
             android:inputType="number"
             android:maxLength="5"
             android:maxLines="1"
@@ -234,13 +234,13 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="125dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:background="@drawable/border_noradius_light_style"
             android:gravity="center"
             android:paddingStart="12dp"
-            android:text="Description: "
+            android:text="Description\nto\nmoder: "
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -252,9 +252,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
-            android:hint="Введите описание"
+            android:hint="@string/addDescription"
             android:maxLines="4"
-            android:text="@string/big_test_text"
+            android:text=""
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             android:textCursorDrawable="@null"
@@ -283,6 +283,7 @@
         android:layout_width="109dp"
         android:layout_height="42dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/button_border_grey"
         android:orientation="horizontal"
         android:text="cancel"
@@ -290,6 +291,7 @@
         android:textColor="@color/light"
         android:textSize="18sp"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/push_to_btn" />

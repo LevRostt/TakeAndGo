@@ -23,19 +23,20 @@
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <Button
+        android:id="@+id/buttonToModerationChats"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="-20dp"
         android:background="@drawable/button_border_green_left_to_right"
+        android:paddingRight="40dp"
+        android:text="+"
+        android:textColor="@color/black"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="-20dp"
-        android:text="+"
-        android:textSize="26sp"
-        android:paddingRight="40dp"
-        android:textColor="@color/black" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_placelist"

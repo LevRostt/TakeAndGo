@@ -28,6 +28,10 @@ public class PlaceViewModel extends AndroidViewModel {
        for (int i = 0; i < places.size(); i++){repo.updateData(places.get(i));}
     }
 
+    public void addPlace(Place place){
+        repo.updateData(place);
+    }
+
     public void generic(){
         repo.generic();
     }
@@ -36,5 +40,8 @@ public class PlaceViewModel extends AndroidViewModel {
         return repo.findByCoordinates(latitude, longitude);
     }
 
+    public LiveData<Integer> getLastId(){
+        return repo.size();
+    }
 
 }

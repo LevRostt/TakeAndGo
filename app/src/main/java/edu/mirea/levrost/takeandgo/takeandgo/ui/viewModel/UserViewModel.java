@@ -105,13 +105,15 @@ public class UserViewModel extends AndroidViewModel {
     private void insertFriendInThread(String idToAdd){
         new Thread(()-> {
             if (localUser != null) {
-                for (String id : localUser.getIdFriends()) {
-                    if (id.equals(idToAdd)) {
-                        return;
+                synchronized (localUser) {
+                    for (String id : localUser.getIdFriends()) {
+                        if (id.equals(idToAdd)) {
+                            return;
+                        }
                     }
+                    localUser.addFriend(idToAdd);
+                    repo.updateUserDataPlace(localUser);
                 }
-                localUser.addFriend(idToAdd);
-                repo.updateUserDataPlace(localUser);
             }
         }).start();
     }
@@ -119,13 +121,14 @@ public class UserViewModel extends AndroidViewModel {
     private void insertPlaceInThread(long idToAdd){
         new Thread(()-> {
             if (localUser != null) { //Отрабатывает в остальных случаях
-                for (long id : localUser.getIdOfVisitedPlaces()) {
-                    if (id == idToAdd) {
-                        return;
+                synchronized (localUser) {
+                    for (long id : localUser.getIdOfVisitedPlaces()) {
+                        if (id == idToAdd) {
+                            return;
+                        }
                     }
+                    localUser.addVisitPlace(idToAdd);
                 }
-                localUser.addVisitPlace(idToAdd);
-
                 repo.updateUserDataPlace(localUser);
             }
         }).start();

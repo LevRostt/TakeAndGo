@@ -26,6 +26,8 @@ public interface PlaceDao {
     @Query("SELECT * FROM PlaceEntity WHERE latitude = :latitude AND longitude = :longitude")
     PlaceEntity findNameByLatitude(double latitude, double longitude);
 
+    @Query("SELECT COUNT(*) FROM PlaceEntity")
+    LiveData<Integer> count();
 
 //    @Query("SELECT * FROM PlaceEntity WHERE id = :id")
 //    LiveData<PlaceEntity> getById(long id);
