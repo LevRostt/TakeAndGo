@@ -78,7 +78,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:background="@drawable/button_based_style"
         android:gravity="center"
         android:orientation="horizontal"
@@ -139,6 +139,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -207,40 +208,40 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/achievements"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/button_border_light_style"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/achievements"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="@drawable/button_border_light_style"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.497"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">-->
 
-        <ImageButton
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:background="@drawable/button_border_light_style"
-            android:paddingTop="10dp"
-            android:paddingBottom="25dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/trophy"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <ImageButton-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:background="@drawable/button_border_light_style"-->
+<!--            android:paddingTop="10dp"-->
+<!--            android:paddingBottom="25dp"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/trophy"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="75dp"
-            android:text="Достижения"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="75dp"-->
+<!--            android:text="Достижения"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
 <!--    <Button-->
@@ -267,10 +268,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_green_light_style"
         android:gravity="center"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/achievements">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <ImageButton
             android:id="@+id/exitButton"
@@ -282,6 +283,7 @@
             android:scaleType="fitEnd"
             android:src="@drawable/exit"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

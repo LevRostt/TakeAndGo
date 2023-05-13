@@ -37,6 +37,7 @@ public class MapListFragment extends Fragment {
         mBinding = MaplistFragmentBinding.inflate(inflater, container, false);
         mPaceViewModel = new ViewModelProvider(this).get(PlaceViewModel.class);
         mUserViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        mUserViewModel.updateData();
         return mBinding.getRoot();
     }
 

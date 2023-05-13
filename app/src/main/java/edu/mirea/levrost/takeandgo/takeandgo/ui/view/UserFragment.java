@@ -35,8 +35,6 @@ public class UserFragment extends Fragment {
         mBinding.userIcon.setClipToOutline(true);
 
         mBinding.friendsButton.setOnClickListener(view ->{
-            Toast.makeText(getContext(), "friendsButton", Toast.LENGTH_LONG).show();
-
             Bundle bundle = new Bundle();
             bundle.putBoolean("isFriends", true);
             NavHostFragment.findNavController(this).navigate(R.id.action_userFragment_to_community_screen, bundle);

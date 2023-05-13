@@ -40,5 +40,8 @@
             android:name="isFriend"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_profileFragment_to_communityScreenFragment"
+            app:destination="@id/communityScreenFragment" />
     </fragment>
 </navigation>

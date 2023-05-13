@@ -87,7 +87,7 @@ public class MapSelectFragment extends Fragment {
     InputListener inputListener = new InputListener() {
         @Override
         public void onMapTap(@NonNull Map map, @NonNull Point point) {
-            Toast.makeText(getContext(), point.getLatitude() + String.valueOf(point.getLongitude()) , Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), point.getLatitude() + String.valueOf(point.getLongitude()) , Toast.LENGTH_SHORT).show();
             PlacemarkMapObject object = mapObjects.addPlacemark(new Point(point.getLatitude(), point.getLongitude()));
 
             object.setIcon(ImageProvider.fromResource(getContext(), R.drawable.pin),

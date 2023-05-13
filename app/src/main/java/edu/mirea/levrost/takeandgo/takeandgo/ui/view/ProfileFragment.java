@@ -38,10 +38,6 @@ public class ProfileFragment extends Fragment {
         mProfileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         mUserViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-        mBinding.friendsButton.setOnClickListener(view ->{
-            Toast.makeText(getContext(), "friendsButton", Toast.LENGTH_LONG).show();
-        });
-
         mBinding.jumpBack.setOnClickListener(view -> {
             NavHostFragment.findNavController(this).popBackStack();
         });
@@ -64,44 +60,32 @@ public class ProfileFragment extends Fragment {
                 mBinding.userId.setText(uid.substring(0, 10) + "...");
             }
 
-//            if (getArguments().getBoolean("isFriend")){
-//                mBinding.subscribe.setText("Вы подписаны");
-//            }
-//            else{
-//                mBinding.subscribe.setText("Подписаться");
-//            }
-
             mUserViewModel.getData().observe(getViewLifecycleOwner(), user -> {
+                boolean subscribe = false;
+
+                mUserViewModel.refusedDataBase(getViewLifecycleOwner());
+
                 for (String friends : user.getIdFriends()) {
                     if (friends.equals(data.getId())) {
-                        mBinding.subscribe.setText("Вы подписаны");
+                        subscribe = true;
                         break;
-                    } else {
-                        mBinding.subscribe.setText("Подписаться");
                     }
                 }
 
-                mBinding.subscribe.setOnClickListener(v->{
-                        if (user.getIdFriends().size() == 0){
-                            mBinding.subscribe.setText("Вы подписаны");
-                            mUserViewModel.insertFriend(mProfile.getId(), getViewLifecycleOwner());
-                        }
-                        else {
-                            boolean isDrop = false;
-                            for (String friends : user.getIdFriends()) {
-                                if (friends.equals(data.getId())) {
-                                    mBinding.subscribe.setText("Подписаться");
-                                    mUserViewModel.deleteFriend(mProfile.getId(), getViewLifecycleOwner());
-                                    isDrop = true;
-                                    break;
-                                } else {
-                                    mBinding.subscribe.setText("Вы подписаны");
-                                }
-                            }
-                            if (isDrop == false){
-                                mUserViewModel.insertFriend(mProfile.getId(), getViewLifecycleOwner());
-                            }
-                        }
+                if (subscribe){
+                    mBinding.subscribe.setText("Вы подписаны");
+                } else {
+                    mBinding.subscribe.setText("Подписаться");
+                }
+
+                mBinding.subscribe.setOnClickListener(v -> {
+                    if (mBinding.subscribe.getText() == "Вы подписаны"){
+                        mUserViewModel.deleteFriend(mProfile.getId());
+//                        NavHostFragment.findNavController(this).navigate(ProfileFragmentDirections.actionProfileFragmentToCommunityScreenFragment().setIsFriends(true));
+                    }
+                    else {
+                        mUserViewModel.insertFriend(mProfile.getId());
+                    }
                 });
             });
 
