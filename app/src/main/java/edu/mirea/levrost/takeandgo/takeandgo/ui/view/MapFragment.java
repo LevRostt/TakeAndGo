@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,9 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.MapFragmentBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKit;
 import com.yandex.mapkit.MapKitFactory;
@@ -76,6 +80,11 @@ public class MapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+//        if (auth.getCurrentUser() != null) {
+//            Toast.makeText(getContext(), auth.getUid(), Toast.LENGTH_SHORT).show();
+//        }
+
         mBinding = MapFragmentBinding.inflate(inflater, container, false);
         mUserViewModel =  new ViewModelProvider(getActivity()).get(UserViewModel.class);
         mPlaceViewModel =  new ViewModelProvider(getActivity()).get(PlaceViewModel.class);
@@ -98,6 +107,8 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mUserViewModel.refusedDataBase(getViewLifecycleOwner());
 
         mapView.getMap()
                 .move(new CameraPosition(new Point(55.7515, 37.64), 9, 0.0f, 0.0f));
@@ -126,6 +137,7 @@ public class MapFragment extends Fragment {
         mBinding.userLocationBtm.setOnClickListener((v) ->{
             jumpToUser(2);
         });
+
     }
 
     @Override
@@ -278,7 +290,24 @@ public class MapFragment extends Fragment {
                     } // Настройка видимости места
 
                     if (userPoint != null && Place.calculateDistance(userPoint.getLatitude(), userPoint.getLongitude(), place) < place.getRadius()){
-                        mUserViewModel.insertPlace(place.getId(), getViewLifecycleOwner());
+                        boolean include = false;
+                        for (Long mPlaces: data.getIdOfVisitedPlaces()){
+                            if (mPlaces == place.getId()){
+                                include = true;
+                                break;
+                            }
+                        }
+
+                        if (!include){
+                            mUserViewModel.refusedDataBase(getViewLifecycleOwner());
+                            mUserViewModel.insertPlace(place.getId());
+
+                            mBinding.mapNotification.startAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.visible_on));
+                            mBinding.mapNotification.setVisibility(View.VISIBLE);
+                            mBinding.mapNotification.setOnClickListener(v->{
+                                NavHostFragment.findNavController(this).navigate(MapFragmentDirections.actionMapFragmentToVisitListFragmentOnMapList());
+                            });
+                        }
                     }
                 }
             });

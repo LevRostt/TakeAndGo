@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.UserFragmentBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 import edu.mirea.levrost.takeandgo.takeandgo.ui.view.activity.MainActivity;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
@@ -46,6 +47,11 @@ public class UserFragment extends Fragment {
         });
 
         mBinding.exitButton.setOnClickListener(view -> {
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            if (auth.getCurrentUser() != null){
+                auth.signOut();
+            }
+
             getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE).edit().clear().apply();
 
             Log.d("TakeAndGoDev", getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", "base"));

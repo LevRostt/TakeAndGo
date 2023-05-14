@@ -77,18 +77,13 @@ public class UserViewModel extends AndroidViewModel {
         repo.deleteUser(userdata);
     }
 
-    public void insertPlace(long idToAdd, LifecycleOwner lifecycleOwner){
-        data.observe(lifecycleOwner, user -> { //Отработает только при подписке и изменениях
-            localUser = user;
-            insertPlaceInThread(idToAdd);
-        });
+    public void insertPlace(long idToAdd){
         insertPlaceInThread(idToAdd);
     }
 
     public void insertFriend(String idToAdd){
         insertFriendInThread(idToAdd);
     }
-
 
     public void deleteFriend(String idToDel){
         deleteFriendInThread(idToDel);
@@ -139,9 +134,10 @@ public class UserViewModel extends AndroidViewModel {
                         }
                     }
                     localUser.addVisitPlace(idToAdd);
+                    repo.updateData(localUser);
                 }
-                repo.updateData(localUser);
             }).start();
+            updateData();
         };
     }
 }

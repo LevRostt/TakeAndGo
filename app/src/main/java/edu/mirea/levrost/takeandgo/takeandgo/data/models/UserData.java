@@ -1,5 +1,8 @@
 package edu.mirea.levrost.takeandgo.takeandgo.data.models;
 
+import android.util.Log;
+
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -71,6 +74,7 @@ public class UserData {
             this.idOfVisitedPlaces = Collections.singletonList(id);
         }
         else{
+            idOfVisitedPlaces = new ArrayList<>(idOfVisitedPlaces);
             this.idOfVisitedPlaces.add(id);
         }
     }
@@ -80,6 +84,7 @@ public class UserData {
             this.idFriends = Collections.singletonList(userId);
         }
         else{
+            idFriends = new ArrayList<>(idFriends);
             this.idFriends.add(userId);
         }
     }
