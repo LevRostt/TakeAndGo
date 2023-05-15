@@ -89,6 +89,8 @@ public class MapFragment extends Fragment {
         mUserViewModel =  new ViewModelProvider(getActivity()).get(UserViewModel.class);
         mPlaceViewModel =  new ViewModelProvider(getActivity()).get(PlaceViewModel.class);
 
+        mUserViewModel.updateData();
+
         mapView = (MapView) mBinding.mapView;
         mapKit = MapKitFactory.getInstance();
         mapObjects = mapView.getMap().getMapObjects().addCollection();
@@ -109,6 +111,27 @@ public class MapFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mUserViewModel.refusedDataBase(getViewLifecycleOwner());
+
+        String hideAllStyle = "[" +
+                "        {" +
+                "            \"types\": \"point\"," +
+                "            \"tags\": {" +
+                "                \"all\": [" +
+                "                    \"poi\"" +
+                "                ]," +
+                "                \"none\": [" +
+                "                    \"outdoor\"," +
+                "                    \"major_landmark\"" +
+                "                ]" +
+                "            }," +
+                "            \"stylers\": {" +
+//                "                \"color\": \"f00\"" +
+                "                \"visibility\": \"off\"" +
+                "            }" +
+                "        }" +
+                "    ]";
+
+        mapView.getMap().setMapStyle(hideAllStyle);
 
         mapView.getMap()
                 .move(new CameraPosition(new Point(55.7515, 37.64), 9, 0.0f, 0.0f));

@@ -63,7 +63,7 @@ public class PlaceListMapListRVAdapter extends RecyclerView.Adapter<PlaceListMap
     @Override
     public void onBindViewHolder(@NonNull PlaceListViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
-        if (placesData.get(position) != null) {
+        if (placesData.get(position) != null && !placesData.isEmpty()) {
 
             if (userData != null) {
                 int placeDistance = Place.calculateDistance(userData.getLatitude(), userData.getLongitude(), placesData.get(position));
