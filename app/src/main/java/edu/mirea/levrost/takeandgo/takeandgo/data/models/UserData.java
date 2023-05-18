@@ -1,6 +1,10 @@
 package edu.mirea.levrost.takeandgo.takeandgo.data.models;
 
+import android.util.Log;
+
+import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserData {
@@ -66,14 +70,28 @@ public class UserData {
     public List<String> getIdFriends() { return idFriends; }
 
     public void addVisitPlace(long id){
-        this.idOfVisitedPlaces.add(id);
+        if (idOfVisitedPlaces.size() == 0){
+            this.idOfVisitedPlaces = Collections.singletonList(id);
+        }
+        else{
+            idOfVisitedPlaces = new ArrayList<>(idOfVisitedPlaces);
+            this.idOfVisitedPlaces.add(id);
+        }
     }
 
     public void addFriend(String userId){
-        this.idFriends.add(userId);
+        if (idFriends.size() == 0){
+            this.idFriends = Collections.singletonList(userId);
+        }
+        else{
+            idFriends = new ArrayList<>(idFriends);
+            this.idFriends.add(userId);
+        }
     }
 
     public void deleteFriend(String userId){
-        this.idFriends.remove(userId);
+        if (idFriends != null){
+            this.idFriends.remove(userId);
+        }
     }
 }

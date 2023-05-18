@@ -59,26 +59,29 @@ public class ProfileListRVAdapter extends RecyclerView.Adapter<ProfileListRVAdap
 
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, int position) {
-        Context context = holder.itemView.getContext();
-        int resId = context.getResources().getIdentifier(data.get(position).getIcon(), "drawable", context.getPackageName());
-        holder.binding.profileIcon.setImageResource(resId);
-        holder.binding.profileName.setText(data.get(position).getName());
-        holder.binding.profileRating.setText(String.valueOf(data.get(position).getRating()));
-        holder.binding.profileId.setText(String.valueOf(data.get(position).getId()));
-        holder.binding.profileIcon.setClipToOutline(true);
-        holder.binding.profileIcon.setCropToPadding(true);
+        if (!data.isEmpty()) {
+            Context context = holder.itemView.getContext();
+            int resId = context.getResources().getIdentifier(data.get(position).getIcon(), "drawable", context.getPackageName());
+            holder.binding.profileIcon.setImageResource(resId);
+            holder.binding.profileName.setText(data.get(position).getName());
+            holder.binding.profileRating.setText(String.valueOf(data.get(position).getRating()));
+            holder.binding.profileId.setText(String.valueOf(data.get(position).getId()));
+            holder.binding.profileIcon.setClipToOutline(true);
+            holder.binding.profileIcon.setCropToPadding(true);
 
-        holder.binding.showButton.setOnClickListener(v -> {
-            NavHostFragment.findNavController(fragment).navigate(
-                    CommunityScreenFragmentDirections
-                            .actionCommunityScreenFragmentToProfileScreenFragment(data.get(position).getId())
-                            .setIsFriend(fragment.getArguments().getBoolean("isFriend")));
-        });
+            holder.binding.showButton.setOnClickListener(v -> {
+                NavHostFragment.findNavController(fragment).navigate(
+                        CommunityScreenFragmentDirections
+                                .actionCommunityScreenFragmentToProfileScreenFragment(data.get(position).getId())
+                                .setIsFriend(fragment.getArguments().getBoolean("isFriend")));
+            });
 
-        holder.itemView.setAnimation(AnimationUtils.
-                loadAnimation(context, context.
-                getResources().
-                getIdentifier("fade_out", "anim", context.getPackageName()))); // Получение созданной заранее анимации в fade_out
+            holder.itemView.setAnimation(AnimationUtils.
+                    loadAnimation(context, context.
+                            getResources().
+                            getIdentifier("fade_out", "anim", context.getPackageName()))); // Получение созданной заранее анимации в fade_out
+
+        }
     }
 
 

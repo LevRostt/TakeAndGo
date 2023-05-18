@@ -31,16 +31,9 @@ public class UserDataRepository {
         });
     }
 
-    public void updateUserDataPlace(UserData data){
-        AppDataBase.databaseWriteExecutor.execute(()->{
-            dataBaseSource.userDataDao().updateUser(new UserDataEntity(data.getName(), data.getUserId(), data.getIdOfVisitedPlaces(), data.getIdFriends() , data.getLatitude(), data.getLongitude()));
-        });
-    }
-
     public void updateData(UserData data){
         AppDataBase.databaseWriteExecutor.execute(() -> {
             dataBaseSource.userDataDao().addProfile(new UserDataEntity(data.getName(), data.getUserId(), data.getIdOfVisitedPlaces(), data.getIdFriends(), data.getLatitude(), data.getLongitude()));
-//            dataBaseSource.userDataDao().updateUser(new UserDataEntity(data.getName(),data.getUserId(), data.getIdOfVisitedPlaces() ,data.getLatitude(),data.getLongitude()));
         });
     }
 }

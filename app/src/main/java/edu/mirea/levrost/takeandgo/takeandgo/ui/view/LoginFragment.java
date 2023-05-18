@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,18 +42,21 @@ public class LoginFragment extends Fragment {
         });
 
         mBinding.loginButton.setOnClickListener(view -> {
-            tryLogin();
+            tryLogin(false);
         });
 
         mBinding.testUserButton.setOnClickListener(view ->{
-            NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_mainScreenFragment);
-            Log.d("TakeAndGoDev_Command_UID",  String.valueOf(1));
-            getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
-                    .edit()
-                    .putString("id", String.valueOf(1))
-                    .apply();
+//            NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_mainScreenFragment);
+//            Log.d("TakeAndGoDev_Command_UID",  String.valueOf(1));
+//            getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
+//                    .edit()
+//                    .putString("id", String.valueOf(1))
+//                    .apply();
 
-            mViewModel.insertData(new UserData("Test name", String.valueOf(1), Arrays.asList())); // Тут нужно будет парсить значения имени и вставлять
+//            mAuth.signInWithEmailAndPassword("root@ro.ot", "roottoor");
+            tryLogin(true);
+
+//            mViewModel.insertData(new UserData("Test name", String.valueOf(1), Arrays.asList())); // Тут нужно будет парсить значения имени и вставлять
 
         });
 
@@ -60,28 +64,53 @@ public class LoginFragment extends Fragment {
     }
 
 
-    private void tryLogin(){
-        if (mBinding.loginEdittext.getText().toString().isEmpty() || mBinding.passwordEdittext.getText().toString().isEmpty()){
-            Log.d("TakeAndGoDev_Command", "Empty");
-        } else{
-            Log.d("TakeAndGoDev_text", mBinding.loginEdittext.getText().toString() + " " + mBinding.passwordEdittext.getText().toString());
-            mAuth.signInWithEmailAndPassword(mBinding.loginEdittext.getText().toString().trim(), mBinding.passwordEdittext.getText().toString().trim())
-                    .addOnCompleteListener(task -> {
-
-                        if (task.isSuccessful()){
-                            Log.d("TakeAndGoDev_Command_UID",  mAuth.getUid());
+    private void tryLogin(boolean isTest){
+        if (isTest){
+            mAuth.signInWithEmailAndPassword("root@ro.ot", "roottoor")
+                    .addOnCompleteListener( task -> {
+                        if (task.isSuccessful()) {
+                            Log.d("TakeAndGoDev_Command_UID", mAuth.getUid());
                             NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_mainScreenFragment);
                             getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
                                     .edit()
                                     .putString("id", mAuth.getUid())
                                     .apply();
 
-                            mViewModel.insertData(new UserData("Test name", mAuth.getUid(), Arrays.asList(1L, 4L))); // Тут нужно будет парсить значения имени и вставлять
+                            mViewModel.insertData(new UserData("User Test", mAuth.getUid())); // Тут нужно будет парсить значения имени и вставлять
 
-                        } else{
+                        } else {
+                            mBinding.loginWarning.setText("Пожалуйста, включите интернет, чтобы войти в профиль");
+                            mBinding.loginWarning.setVisibility(View.VISIBLE);
                             Log.d("TakeAndGoDev_Command", "Auth doesn't done!");
                         }
                     });
+        }
+        else {
+            if (mBinding.loginEdittext.getText().toString().isEmpty() || mBinding.passwordEdittext.getText().toString().isEmpty()) {
+                mBinding.loginWarning.setText("Введите логин и пароль");
+                mBinding.loginWarning.setVisibility(View.VISIBLE);
+                Log.d("TakeAndGoDev_Command", "Empty");
+            } else {
+                Log.d("TakeAndGoDev_text", mBinding.loginEdittext.getText().toString() + " " + mBinding.passwordEdittext.getText().toString());
+                mAuth.signInWithEmailAndPassword(mBinding.loginEdittext.getText().toString().trim(), mBinding.passwordEdittext.getText().toString().trim())
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Log.d("TakeAndGoDev_Command_UID", mAuth.getUid());
+                                NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_mainScreenFragment);
+                                getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
+                                        .edit()
+                                        .putString("id", mAuth.getUid())
+                                        .apply();
+
+                                mViewModel.insertData(new UserData("Test name", mAuth.getUid())); // Тут нужно будет парсить значения имени и вставлять
+
+                            } else {
+                                mBinding.loginWarning.setText("Не верный логин или пароль");
+                                mBinding.loginWarning.setVisibility(View.VISIBLE);
+                                Log.d("TakeAndGoDev_Command", "Auth doesn't done!");
+                            }
+                        });
+            }
         }
     }
 

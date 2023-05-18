@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.takeandgo.R;
 import com.example.takeandgo.databinding.UserFragmentBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 import edu.mirea.levrost.takeandgo.takeandgo.ui.view.activity.MainActivity;
 import edu.mirea.levrost.takeandgo.takeandgo.ui.viewModel.UserViewModel;
@@ -35,8 +36,6 @@ public class UserFragment extends Fragment {
         mBinding.userIcon.setClipToOutline(true);
 
         mBinding.friendsButton.setOnClickListener(view ->{
-            Toast.makeText(getContext(), "friendsButton", Toast.LENGTH_LONG).show();
-
             Bundle bundle = new Bundle();
             bundle.putBoolean("isFriends", true);
             NavHostFragment.findNavController(this).navigate(R.id.action_userFragment_to_community_screen, bundle);
@@ -48,6 +47,11 @@ public class UserFragment extends Fragment {
         });
 
         mBinding.exitButton.setOnClickListener(view -> {
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            if (auth.getCurrentUser() != null){
+                auth.signOut();
+            }
+
             getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE).edit().clear().apply();
 
             Log.d("TakeAndGoDev", getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", "base"));

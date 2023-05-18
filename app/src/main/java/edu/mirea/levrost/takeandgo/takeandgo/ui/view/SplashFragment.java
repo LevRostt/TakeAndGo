@@ -78,19 +78,19 @@ public class SplashFragment extends Fragment {
     }
 
 
-//    private void renderAnimations() {
-//        mBinding.loadingIndicator.setAlpha(0f);
-//        mBinding.loadingIndicator.animate()
-//                .alpha(0.7f)
-//                .setDuration(500)
-//                .start();
-//
-//        mBinding.pleaseWaitTextView.setAlpha(0f);
-//        mBinding.pleaseWaitTextView.animate()
-//                .alpha(1f)
-//                .setStartDelay(200)
-//                .setDuration(500)
-//                .start();
-//
-//    }
+    private void renderAnimations() {
+        mBinding.loadingIndicator.setAlpha(0f);
+        mBinding.loadingIndicator.animate()
+                .alpha(0.7f)
+                .setDuration(500)
+                .start();
+
+        mBinding.pleaseWaitTextView.setAlpha(0f);
+        mBinding.pleaseWaitTextView.animate()
+                .alpha(1f)
+                .setStartDelay(200)
+                .setDuration(500)
+                .start();
+
+    }
 }

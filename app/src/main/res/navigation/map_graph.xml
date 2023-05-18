@@ -14,5 +14,13 @@
             android:name="Longitude"
             app:argType="float"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_mapFragment_to_visitListFragmentOnMapList"
+            app:destination="@id/visitListFragmentOnMapList" />
     </fragment>
+    <fragment
+        android:id="@+id/visitListFragmentOnMapList"
+        android:name="edu.mirea.levrost.takeandgo.takeandgo.ui.view.VisitListFragment"
+        android:label="visitlist_fragment"
+        tools:layout="@layout/visitlist_fragment" />
 </navigation>
