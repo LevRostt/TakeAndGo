@@ -3,6 +3,9 @@
 
 Основанием для разработки является требование для получения зачёта в IT академии Samsung по направлению «Мобильная разработка на Java» в институте РТУ МИРЭА.
 
+Презентация с работающими гифками: https://docs.google.com/presentation/d/1aNwwurIBqxvYdXXKn4SPRSNfV98450aV/edit?usp=sharing&ouid=107915758452846532242&rtpof=true&sd=true
+
+Слайды презентации:
 ![27d5831b725d1e48573b7cbba1c3e6cc-0](https://github.com/LevRostt/TakeAndGo/assets/116977364/b47af258-57bc-4829-a608-b13b26bb9797)
 ![27d5831b725d1e48573b7cbba1c3e6cc-1](https://github.com/LevRostt/TakeAndGo/assets/116977364/ceb29101-b265-405b-9163-fd8498831fd6)
 ![27d5831b725d1e48573b7cbba1c3e6cc-2](https://github.com/LevRostt/TakeAndGo/assets/116977364/da657fd0-ee99-4cfb-aa81-dd23ddcf5c1c)
