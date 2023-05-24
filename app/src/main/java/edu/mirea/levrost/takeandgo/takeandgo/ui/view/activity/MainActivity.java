@@ -58,11 +58,11 @@ public class MainActivity extends FragmentActivity {
 
 //        AppDataBase.getDataBase(this).userDataDao().addProfile( this.getSharedPreferences("UID", Context.MODE_PRIVATE).getString("id", null) );
 
-        MapKitFactory.setApiKey(MAPKIT_API_KEY);
+        MapKitFactory.setApiKey(MAPKIT_API_KEY); // установление ключа для активицация парсинга Яндекс карты
         MapKitFactory.initialize(this);
 
-        getSupportFragmentManager().registerFragmentLifecycleCallbacks(fragmentListener, true);
-        navRestart();
+        getSupportFragmentManager().registerFragmentLifecycleCallbacks(fragmentListener, true); // с помощью внутренне фукциональности ищим navigation контроллер, если таковой не был найден
+        navRestart(); // Запуск экранов
     }
 
 
@@ -112,7 +112,7 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    private boolean isStartDestnation(NavDestination destination){
+    private boolean isStartDestnation(NavDestination destination){ //Проверка находимся(в данном случае передали) ли мы на стартовом экране
         if (destination == null) return false;
         NavGraph graph = destination.getParent();
         if (graph == null) return false;
@@ -121,7 +121,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() { // Переопределение конпки назад. Неоходимо, чтобы приложение не выбрасовало автоматически
         if (isStartDestnation(navController.getCurrentDestination()) || navController.getBackQueue().isEmpty()){ //Если не создали navController или пользователь не залогинен
             if (back_pressed + 2500 > System.currentTimeMillis()) {
                 super.onBackPressed();

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -89,17 +90,18 @@ public class MapFragment extends Fragment {
         mUserViewModel =  new ViewModelProvider(getActivity()).get(UserViewModel.class);
         mPlaceViewModel =  new ViewModelProvider(getActivity()).get(PlaceViewModel.class);
 
-        mUserViewModel.updateData();
+        mUserViewModel.updateData(); //Обновляем местоположения пользователя
 
         mapView = (MapView) mBinding.mapView;
         mapKit = MapKitFactory.getInstance();
-        mapObjects = mapView.getMap().getMapObjects().addCollection();
+        mapObjects = mapView.getMap().getMapObjects().addCollection(); // Получаем объекты на карте, чтобы потом с ними удобно взаимодействова
 
         userLocationLayer = mapKit.createUserLocationLayer(mapView.getMapWindow());
         userLocationLayer.setVisible(false);
         userLocationLayer.setObjectListener(locationObjectListener);
 
         updateUserLocation();
+
         createMapPlaces();
 
         return mBinding.getRoot();
@@ -110,9 +112,9 @@ public class MapFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mUserViewModel.refusedDataBase(getViewLifecycleOwner());
+        mUserViewModel.refusedDataBase(getViewLifecycleOwner()); // Заранее обновляем содержимое базы данных, чтобы иметь актуальные данные
 
-        String hideAllStyle = "[" +
+        String hideAllStyle = "[" + // Самое тупое что может быть, но это задание стиля через псевдо JSON для карты
                 "        {" +
                 "            \"types\": \"point\"," +
                 "            \"tags\": {" +
@@ -142,7 +144,7 @@ public class MapFragment extends Fragment {
             mapView.getMap().move(
                     new CameraPosition(new Point(dataPlace[0], dataPlace[1]), 14.5f, 0.0f, 0.0f),
                     new Animation(Animation.Type.SMOOTH, 1.5f), null);
-        }); //Получение данных и дочерних экранов(слушатель будет вызван, если кто-то из дочерних послалкоординаты)
+        }); //Получение данных и дочерних экранов(слушатель будет вызван, если кто-то из дочерних послал координаты)
             // Так как это слушатель то, в теории(и как показала практика),
             // он имеет больший приоритет, поэтому зум создаётся именно на объект
             //который мы слушаем. Так как внутрь слушателя мы зайдём после выполнения всего кода
@@ -259,6 +261,7 @@ public class MapFragment extends Fragment {
         }
     }
 
+
     private UserLocationObjectListener locationObjectListener = new UserLocationObjectListener() {
         @Override
         public void onObjectAdded(@NonNull UserLocationView userLocationView) {
@@ -287,10 +290,12 @@ public class MapFragment extends Fragment {
         public void onObjectUpdated(@NonNull UserLocationView userLocationView, @NonNull ObjectEvent objectEvent) {}
     };
 
-    private void createMapPlaces(){
 
-        MapObjectTapListener objectTapListener = (mapObject, point) -> {
 
+    private void createMapPlaces(){ //Добавляет приблюжённые к пользователю места на карту
+
+        MapObjectTapListener objectTapListener = (mapObject, point) -> { // Создаём заранее, чтобы не программа не теряла указатель
+                                                                                                                    // на это listener
             PlacemarkMapObject localObject = (PlacemarkMapObject) mapObject;
             Object userData = localObject.getUserData();
             if (userData instanceof Place){
@@ -312,6 +317,7 @@ public class MapFragment extends Fragment {
                         object.addTapListener(objectTapListener);
                     } // Настройка видимости места
 
+                    //Проверяем находится ли пользователь достаточно близко к месту, чтобы добавить его как посещённое
                     if (userPoint != null && Place.calculateDistance(userPoint.getLatitude(), userPoint.getLongitude(), place) < place.getRadius()){
                         boolean include = false;
                         for (Long mPlaces: data.getIdOfVisitedPlaces()){

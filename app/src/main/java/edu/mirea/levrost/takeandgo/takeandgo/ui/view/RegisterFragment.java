@@ -41,7 +41,7 @@ public class RegisterFragment extends Fragment {
         return mBinding.getRoot();
     }
 
-    private void tryRegister(){
+    private void tryRegister(){ //аналог логина
 
         if (mBinding.loginEdittext.getText().toString().isEmpty() || mBinding.passwordEdittext.getText().toString().isEmpty()){
             Log.d("TakeAndGoDev", "Empty");

@@ -64,7 +64,7 @@ public class LoginFragment extends Fragment {
     }
 
 
-    private void tryLogin(boolean isTest){
+    private void tryLogin(boolean isTest){ // Передаваемый параметр отслеживает пытаемся ли мы зайти в тестовый аккаунт или нет
         if (isTest){
             mAuth.signInWithEmailAndPassword("root@ro.ot", "roottoor")
                     .addOnCompleteListener( task -> {
@@ -86,6 +86,7 @@ public class LoginFragment extends Fragment {
                     });
         }
         else {
+            //проверка коррекности ввода
             if (mBinding.loginEdittext.getText().toString().isEmpty() || mBinding.passwordEdittext.getText().toString().isEmpty()) {
                 mBinding.loginWarning.setText("Введите логин и пароль");
                 mBinding.loginWarning.setVisibility(View.VISIBLE);
@@ -93,14 +94,15 @@ public class LoginFragment extends Fragment {
             } else {
                 Log.d("TakeAndGoDev_text", mBinding.loginEdittext.getText().toString() + " " + mBinding.passwordEdittext.getText().toString());
                 mAuth.signInWithEmailAndPassword(mBinding.loginEdittext.getText().toString().trim(), mBinding.passwordEdittext.getText().toString().trim())
+                        //получаем данные из полей и пытаемся войти с ними через Firebase API
                         .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
+                            if (task.isSuccessful()) { //Если удачно вошли
                                 Log.d("TakeAndGoDev_Command_UID", mAuth.getUid());
                                 NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_mainScreenFragment);
                                 getActivity().getSharedPreferences("UID", Context.MODE_PRIVATE)
                                         .edit()
                                         .putString("id", mAuth.getUid())
-                                        .apply();
+                                        .apply(); // Обновляем данные о том, какой у нас установлен новый профиль
 
                                 mViewModel.insertData(new UserData("Test name", mAuth.getUid())); // Тут нужно будет парсить значения имени и вставлять
 

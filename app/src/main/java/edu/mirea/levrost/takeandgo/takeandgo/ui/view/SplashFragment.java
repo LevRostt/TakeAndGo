@@ -67,7 +67,7 @@ public class SplashFragment extends Fragment {
     }
 
 
-    private void fillDataBase(){
+    private void fillDataBase(){ //Заполняем базу данных заранее подготовленными и генерируемыми значениями
         mPlaceViewModel.getPlaces().observe(getViewLifecycleOwner(), places -> {
             if (places.size() == 0){
                 mPlaceViewModel.generic();
